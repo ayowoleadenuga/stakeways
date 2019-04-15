@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,700");
+
+.App {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #747474;
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  background: #313340;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  &.active {
+    width: 100%;
+  }
+  .container-fluid {
+    padding: 1rem !important;
+  }
+  .content-wrapper{
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 3px;
+    box-shadow: 0 0 5px #CCC;
+    .item-count{
+      font-size: 1rem;
+      font-weight: bold;
+      padding-top: 0.5rem;
+    }
+  }
+}
+
+
+.btn{
+  font-size: 14px;
+  &.btn-primary{
+    &.btn-outline{
+      color: #00425F;
+      background-color: #FFF;
+      border-color: #00425F;
+    }
+    background-color: #00425F;
+    border-color: #00425F;
+  }
+  &.btn-outline-primary{
+    color: #00425F;
+    background-color: #FFF;
+    border-color: #00425F;
+  }
+}
+.navbar {
+  border-bottom: 1px solid rgb(146, 143, 143) !important;
+  background: #313340;
+  padding: 0.6rem 1rem !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.required {
+  &::after {
+    content: " *";
+    color:#FF0000;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    width: 100%;
+    &.active {
+      width: calc(100% - 250px);
+    }
+  }
+}

@@ -1,26 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Route, Switch } from "react-router-dom";
+import { history } from "./_utils";
+import { Container } from "reactstrap";
+import "./App.scss";
+import SideMenu from "./component/sidebar";
+import { CNavBar } from "./_utils/NavBar";
+import { routes } from "./_constants"
 
 class App extends Component {
+  state = {
+    fullWidth: false
+  };
+
+  toggleFullWidth = () => {
+    this.setState(prevState => ({
+      fullWidth: !prevState.fullWidth
+    }));
+  };
+
   render() {
+    const { location } = this.props
+    const { fullWidth } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router history={history}>
+        <div className="App">
+        <SideMenu isFullWidth={fullWidth} location={location} />
+        <main className={`main-content ${fullWidth ? "active" : ""}`}>
+          <CNavBar id="navbar" toggleFullWidth={this.toggleFullWidth} />
+          <Container fluid>
+            <Switch>
+              {routes.map(route => (
+                <Route
+                  key={route.key}
+                  exact={route.exact}
+                  path={route.path}
+                  name={route.name}
+                  component={route.pageComponent}
+                />
+              ))}
+            </Switch>
+          </Container>
+        </main>
+        </div>
+      </Router>
     );
   }
 }
