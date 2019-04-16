@@ -2,14 +2,14 @@ import React from 'react';
 import { Card, Button, CardHeader, CardFooter, CardBody,
   CardText } from 'reactstrap';
 
-const card = (props) => {
+const CardTemplate = (props) => {
   return (
     <div>
       <Card>
         <CardHeader tag="h3">{props.title}</CardHeader>
         <CardBody>
           <CardText>{props.body}</CardText>
-          <Button>{props.cta}</Button>
+          <Button className="btn btn-secondary float-right">{props.cta}</Button>
         </CardBody>
         <CardFooter className="text-muted">{props.title}</CardFooter>
       </Card>
@@ -17,4 +17,4 @@ const card = (props) => {
   );
 };
 
-export default card;
+export default CardTemplate;

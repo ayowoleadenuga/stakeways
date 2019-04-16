@@ -13,7 +13,7 @@ class SideMenuComponent extends Component {
       <Nav className={`sidebar ${isFullWidth ? "active" : ""}`} vertical navbar>
         <div className="sidebar-header">
           <h3>
-            Stakeways
+            Stake<span className='sec-color'>ways</span>
           </h3>
         </div>
         {routes.map(route => (
@@ -24,7 +24,7 @@ class SideMenuComponent extends Component {
             }
           >
             {route.menu && (
-              <NavItem>
+              <NavItem className='nav-item'>
                 <NavLink to={route.path} tag={RRNavLink}>
                   {route.icon({ size: 20 })}
                   {route.title}

@@ -2,12 +2,14 @@ import {
   MdHistory,
   MdHome,
   MdGames,
-  MdPerson
+  MdPerson,
+  MdViewList
 } from "react-icons/md";
 import Home from "../component/home/home";
 import AllGames from "../component/all_games/allGames";
 import Transactions from "../component/transactions/transaction";
 import AccountSettings from "../component/account/accountSettings";
+import History1 from "../component/history/history";
 
 export const routeConstants = {
   HOME: {
@@ -15,7 +17,7 @@ export const routeConstants = {
     title: "Home",
     exact: true,
     name: "Home",
-    path: "/",
+    path: "/home",
     icon: MdHome,
     menu: true,
     menuOptions: {
@@ -37,7 +39,7 @@ export const routeConstants = {
     pageComponent: AllGames,
     enabled: true
   },
-  TRANSACTIONS: {
+  HISTORY: {
     key: "history",
     title: "History",
     name: "History",
@@ -47,7 +49,7 @@ export const routeConstants = {
     menuOptions: {
       darken: false
     },
-    pageComponent: Transactions,
+    pageComponent: History1,
     enabled: true
   },
   ACCOUNT: {
@@ -61,6 +63,19 @@ export const routeConstants = {
       darken: false
     },
     pageComponent: AccountSettings,
+    enabled: true
+  },
+  TRANSACTIONS: {
+    key: "transaction",
+    title: "Transaction",
+    name: "Transactions",
+    path: "/transactions",
+    icon: MdViewList,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: Transactions,
     enabled: true
   }
 };

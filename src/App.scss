@@ -73,6 +73,12 @@
     color:#FF0000;
   }
 }
+.cardview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  justify-items: center;
+}
 
 @media (max-width: 768px) {
   .main-content {
