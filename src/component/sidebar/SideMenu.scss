@@ -17,13 +17,18 @@
     margin-left: -250px;
   }
   .sidebar-header {
-    h3 {
-      padding: 1rem;
-      font-size: 1.5rem;
-      margin-bottom: 0;
-      border-bottom: 0.2px solid rgb(146, 143, 143);
-      font-weight: bold;
-      background: #313342;
+    border-bottom: 0.2px solid rgb(146, 143, 143);
+    // h3 {
+    //   padding: 1rem;
+    //   font-size: 1.5rem;
+    //   margin-bottom: 0;
+    //   border-bottom: 0.2px solid rgb(146, 143, 143);
+    //   font-weight: bold;
+    //   background: #313342;
+    // }
+    img {
+      width: 150px !important;
+      margin-left: 12px;
     }
   }
 
@@ -49,6 +54,7 @@
 .sec-color {
   color: #FF0000;
   font-style: italic;
+  text-decoration: underline;
   font-size: 100;
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import PropTypes from "prop-types";
-
+import logo from "../../logo.png"
 import "./SideMenu.scss";
 import { routes } from "../../_constants";
 
@@ -12,9 +12,7 @@ class SideMenuComponent extends Component {
     return (
       <Nav className={`sidebar ${isFullWidth ? "active" : ""}`} vertical navbar>
         <div className="sidebar-header">
-          <h3>
-            Stake<span className='sec-color'>ways</span>
-          </h3>
+          <img className="img" src={logo} alt="logo" />
         </div>
         {routes.map(route => (
           <div

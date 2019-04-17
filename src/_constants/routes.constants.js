@@ -67,7 +67,7 @@ export const routeConstants = {
   },
   TRANSACTIONS: {
     key: "transaction",
-    title: "Transaction",
+    title: "Transactions",
     name: "Transactions",
     path: "/transactions",
     icon: MdViewList,
