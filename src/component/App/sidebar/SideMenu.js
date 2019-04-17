@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import PropTypes from "prop-types";
-import logo from "../../logo.png"
+import logo from "../../../logo.png"
 import "./SideMenu.scss";
-import { routes } from "../../_constants";
+import { routes } from "../../../_constants";
 
 class SideMenuComponent extends Component {
   render() {
