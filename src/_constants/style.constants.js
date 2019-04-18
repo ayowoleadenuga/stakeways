@@ -1,4 +1,4 @@
 export const styleConstants = {
-  primaryColor: "",
-  secondaryColor: ""
+  primaryColor: "#313342",
+  secondaryColor: "#901E78"
 };

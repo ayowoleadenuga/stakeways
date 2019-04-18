@@ -20,10 +20,9 @@ class MainApp extends Component {
   render() {
     const { location, match } = this.props;
     const { fullWidth } = this.state;
-    console.log(match)
     return (
         <div className="App">
-          <SideMenu isFullWidth={fullWidth} location={location} />
+          <SideMenu match={match} isFullWidth={fullWidth} location={location} />
           <main className={`main-content ${fullWidth ? "active" : ""}`}>
             <CNavBar id="navbar" toggleFullWidth={this.toggleFullWidth} />
             <Container fluid>

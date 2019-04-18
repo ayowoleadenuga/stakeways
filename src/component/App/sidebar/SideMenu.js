@@ -8,7 +8,8 @@ import { routes } from "../../../_constants";
 
 class SideMenuComponent extends Component {
   render() {
-    const { isFullWidth } = this.props;
+    const { isFullWidth, match } = this.props;
+
     return (
       <Nav className={`sidebar ${isFullWidth ? "active" : ""}`} vertical navbar>
         <div className="sidebar-header">
@@ -23,7 +24,7 @@ class SideMenuComponent extends Component {
           >
             {route.menu && (
               <NavItem className='nav-item'>
-                <NavLink to={route.path} tag={RRNavLink}>
+                <NavLink to={`${match.url}${route.path}`} tag={RRNavLink}>
                   {route.icon({ size: 20 })}
                   {route.title}
                 </NavLink>

@@ -10,15 +10,13 @@ class App extends Component {
     return (
       <Router history={history}>
         <Route
-          key="account"
-          exact={true}
-          path="/account"
-          name="account"
+          key="auth"
+          path="/auth"
+          name="auth"
           component={Account}
         />
         <Route
           key="app"
-          exact={true}
           path="/app"
           name="app"
           component={MainApp}

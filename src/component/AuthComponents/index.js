@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
+import { StyleSheet, css } from "aphrodite";
+import logo from "../../logo.png"
+import { styleConstants } from "../../_constants";
+
 // import { Route, Switch } from "react-router-dom";
 
 /* import LoginComponent from "./Login"; */
@@ -7,18 +11,17 @@ import { Row, Col } from "reactstrap";
 class Account extends Component {
   render() {
     return (
-      <Row>
+      <Row className="App">
         <Col>
-          <div className="text-center">
-            <div className="form-signin">
+          <div className={css(styles.wrapper)}>
+            <div className={css(styles.formSignin)}>
               <img
                 className="mb-4"
-                src="../../assets/brand/bootstrap-solid.svg"
+                src={logo}
                 alt=""
-                width="72"
                 height="72"
               />
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <h4 className="h3 mb-3 font-weight-bold">Please sign in</h4>
               <label for="inputEmail" className="sr-only">
                 Email address
               </label>
@@ -59,5 +62,42 @@ class Account extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    display: "flex",
+    alignItems: "center",
+    paddingTop: "40px",
+    paddingBottom: "40px",
+    backgroundColor: styleConstants.primaryColor
+  },
+
+  formSignin: {
+    width: "100%",
+    maxWidth: "330px",
+    padding: "15px",
+    margin: "auto"
+  },
+  formControl: {
+    position: "relative",
+    boxSizing: "border-box",
+    height: "auto",
+    padding: "10px",
+    fontSize: "16px",
+    ":focus": {
+      zIndex: "2"
+    }
+  },
+  inputEmail: {
+    marginBottom: "-1px",
+    borderBottomRightRadius: "0",
+    borderBottomLeftRadius: "0"
+  },
+  inputPassword: {
+    marginBottom: "10px",
+    borderTopLeftRadius: "0",
+    borderTopRightRadius: "0"
+  }
+});
 
 export default Account;
