@@ -17,42 +17,34 @@
     margin-left: -250px;
   }
   .sidebar-header {
-    border-bottom: 0.2px solid rgb(146, 143, 143);
-    // h3 {
-    //   padding: 1rem;
-    //   font-size: 1.5rem;
-    //   margin-bottom: 0;
-    //   border-bottom: 0.2px solid rgb(146, 143, 143);
-    //   font-weight: bold;
-    //   background: #313342;
-    // }
+    /* border-bottom: 0.2px solid #555; */
+    padding: 0.5rem;
     img {
-      width: 150px !important;
-      margin-left: 12px;
+      height: 52px;
     }
   }
 
   .nav-item {
     .nav-link {
       color: #ffffff;
-      padding: 1rem;
-      font-size: 1.2rem;
+      padding: 0.9rem;
+      font-size: 1rem;
       svg {
         margin-right: 1rem;
       }
       &.active {
-        border-left: 3px solid #FF0000;
-        color: #FF0000 !important;
+        border-left: 3px solid #901E78 ;
+        background: #2e2e2e !important;
       }
     }
     &:hover {
-        border-left: 3px solid #FF0000;
-        color: #FF0000 !important;
+        border-left: 3px solid #901E78 ;
+        color: #901E78  !important;
       }
   }
 }
 .sec-color {
-  color: #FF0000;
+  color: #901E78 ;
   font-style: italic;
   text-decoration: underline;
   font-size: 100;
