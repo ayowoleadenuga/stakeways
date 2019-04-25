@@ -7,9 +7,9 @@ import {
 } from "react-icons/md";
 import Home from "../component/App/home/home";
 import AllGames from "../component/App/all_games/allGames";
-import Transactions from "../component/App/transactions/transaction";
+import ManageTransactions from "../component/App/transactions/ManageTransaction";
 import AccountSettings from "../component/App/account/accountSettings";
-import History1 from "../component/App/history/history";
+import ManageHistory from "../component/App/history/ManageHistory";
 
 export const routeConstants = {
   HOME: {
@@ -51,7 +51,7 @@ export const routeConstants = {
     menuOptions: {
       darken: false
     },
-    pageComponent: History1,
+    pageComponent: ManageHistory,
     enabled: true
   },
   ACCOUNT: {
@@ -79,7 +79,7 @@ export const routeConstants = {
     menuOptions: {
       darken: false
     },
-    pageComponent: Transactions,
+    pageComponent: ManageTransactions,
     enabled: true
   }
 };
