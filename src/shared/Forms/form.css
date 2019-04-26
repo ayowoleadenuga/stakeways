@@ -1,0 +1,185 @@
+.error-border {
+    border-style: solid;
+    border: 1.1px solid #dc3545;
+    border-radius: 3px;
+  }
+  
+  .normal-border {
+    width: 200%;
+  }
+  /* MAIN CSS FOR THE REACT-TABLE TO OVER-RIDE DEFAULT VALUES*/
+  .ReactTable .-pagination .-center {
+    flex: 5;
+  }
+  .ReactTable .-pagination input, .ReactTable .-pagination select {
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fcfcfc;
+    padding: 5px 7px;
+    font-size: inherit;
+    border-radius: 3px;
+    font-weight: normal;
+    outline: none;
+}
+
+.ReactTable .-pagination .-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 1em;
+  color: #901E78;
+  background: rgba(0,0,0,0.1);
+  transition: all .1s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.spinner-border {
+  position: absolute;
+  top: 43%;
+  left: 43%;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: .25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border .75s linear infinite;
+  animation: spinner-border .75s linear infinite;
+}
+/*....ENDS HERE .........*/
+  .btn-overide {
+    width: 3.5rem;
+    text-align: left;
+  }
+  
+  .tag {
+    color: #fff;
+    font-weight: bold;
+    background: #00425f;
+    float: left;
+    padding: 5px 10px;
+    border-radius: 10em;
+  }
+  
+  .editor2 {
+    background: #fff;
+    min-height: 20rem;
+    padding: 0 1rem;
+    overflow: auto;
+  }
+  
+  .dashboard-box {
+    border-radius: 5px;
+    box-shadow: #eee 2px 2px;
+    border-left: thick solid #ccc;
+    padding: 1rem;
+  }
+  
+  .dashboard-box > div {
+    display: inline-block;
+  }
+  
+  .verticalLine1 {
+    border-color: #3f87c6;
+  }
+  
+  .verticalLine2 {
+    border-color: #58a8af;
+  }
+  
+  .verticalLine3 {
+    border-color: #d1695e;
+  }
+  
+  .circle {
+    border-radius: 100%;
+    padding: 1rem;
+    margin: 0 10px;
+  }
+  
+  .circle.blue {
+    background-color: #3f87c6;
+  }
+  
+  .circle.green {
+    background-color: #58a8af;
+  }
+  
+  .circle.wine {
+    background-color: #d1695e;
+  }
+  
+  
+  .react-datepicker__input-container {
+    position: relative;
+    display: block !important;
+  }
+  
+  .react-datepicker {
+    display: flex !important;
+    position: fixed;
+  }
+  
+  .react-datepicker-wrapper {
+    display: block;
+    width: 100%;
+  }
+  .input-group > .form-control:read-only{
+    border-right: none;
+  }
+  .input-group > .form-control:read-only, .input-group .input-group-text {
+    background: #FFFFFF;
+  }
+  
+  .input-group > .form-control:disabled {
+    background: #EEE;
+  }
+  
+  
+  .react-datepicker__input-container .react-datepicker__close-icon{
+    top: 30%;
+    right: 10%;
+    background: none;
+  }
+  
+  .react-datepicker__input-container .react-datepicker__close-icon::after{
+    background-color: #CCC;
+  }
+  .card-footer {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,0)!important;
+    border-top: 1px solid rgba(0,0,0,.125);
+  }
+  
+  /*=============CSS FOR UPLOAD FILE===============*/
+  .file-input-wrapper {
+    width: 200px;
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  .file-input-wrapper > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+  }
+  .file-input-wrapper > .btn-file-input {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+  }
+
+
+
+  .format1{
+    background-color:#313340; 
+}
