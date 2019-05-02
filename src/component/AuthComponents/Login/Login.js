@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
+import { Row, Col } from "reactstrap";
 import { styleConstants } from "../../../_constants";
+import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   render() {
@@ -42,6 +44,20 @@ export default class Login extends Component {
         >
           Sign in
         </button>
+        
+        <Row className="my-3">
+          <Col sm="6">
+            <p className="text-left">
+              Need an account. <Link to="/auth/register">Sign Up</Link>
+            </p>
+          </Col>
+          <Col sm="6">
+            <p className="text-right">
+              <Link to="/auth/forgot-password">Forgot password?</Link>
+            </p>
+          </Col>
+        </Row>
+
         <p className="mt-4 mb-3 text-muted">
           <small>&copy; stakeways - {new Date().getFullYear()}</small>
         </p>

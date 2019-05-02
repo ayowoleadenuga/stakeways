@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
+import { Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default class ResetPassword extends Component {
   render() {
@@ -42,6 +44,13 @@ export default class ResetPassword extends Component {
         >
           Confirm
         </button>
+        <Row className="my-3">
+          <Col>
+            <p className="text-center">
+              <Link to="/auth/login">Back to login</Link>
+            </p>
+          </Col>
+        </Row>
         <p className="mt-4 mb-3 text-muted">
           <small>&copy; stakeways - {new Date().getFullYear()}</small>
         </p>

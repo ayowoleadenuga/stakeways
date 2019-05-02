@@ -1,12 +1,40 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
+import { Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default class Register extends Component {
   render() {
     return (
       <div>
         <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
+        <label for="inputEmail" className="sr-only">
+          Given Name
+        </label>
+        <input
+          id="inputEmail"
+          className={`${css(
+            styles.formControl,
+            styles.inputEmail
+          )} form-control`}
+          placeholder="Given name"
+          required
+          autofocus
+        />
+        <label for="inputEmail" className="sr-only">
+          Last Name
+        </label>
+        <input
+          id="inputEmail"
+          className={`${css(
+            styles.formControl,
+            styles.input
+          )} form-control`}
+          placeholder="Last name"
+          required
+          autofocus
+        />
         <label for="inputEmail" className="sr-only">
           Email address
         </label>
@@ -15,7 +43,7 @@ export default class Register extends Component {
           id="inputEmail"
           className={`${css(
             styles.formControl,
-            styles.inputEmail
+            styles.input
           )} form-control`}
           placeholder="Email address"
           required
@@ -29,9 +57,22 @@ export default class Register extends Component {
           id="inputPassword"
           className={`${css(
             styles.formControl,
-            styles.inputPassword
+            styles.input
           )} form-control`}
           placeholder="Password"
+          required
+        />
+        <label for="inputPassword" className="sr-only">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          id="inputPassword"
+          className={`${css(
+            styles.formControl,
+            styles.inputPassword
+          )} form-control`}
+          placeholder="Confirm Password"
           required
         />
         <button
@@ -40,8 +81,17 @@ export default class Register extends Component {
           )} btn mt-4 btn-lg btn-primary btn-block`}
           type="submit"
         >
-          Sign in
+          Sign up
         </button>
+
+        <Row className="my-3">
+          <Col>
+            <p className="text-center">
+              Already have an account? <Link to="/auth/login">Login</Link>
+            </p>
+          </Col>
+        </Row>
+
         <p className="mt-4 mb-3 text-muted">
           <small>&copy; stakeways - {new Date().getFullYear()}</small>
         </p>
@@ -70,6 +120,10 @@ const styles = StyleSheet.create({
     marginBottom: "-1px",
     borderBottomRightRadius: "0",
     borderBottomLeftRadius: "0"
+  },
+  input: {
+    marginBottom: "-1px",
+    borderRadius: "0"
   },
   inputPassword: {
     marginBottom: "10px",
