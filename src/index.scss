@@ -1,6 +1,9 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
-  color: #676767;
-  background-color: #eeeeee;
+  height: 100%;
+}
+
+#root{
+  height: 100%;
 }
