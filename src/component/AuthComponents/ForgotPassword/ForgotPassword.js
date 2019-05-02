@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
+import { Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default class ForgotPassword extends Component {
   render() {
@@ -29,6 +31,18 @@ export default class ForgotPassword extends Component {
         >
           Forgot Password
         </button>
+        <Row className="my-3">
+          <Col sm="6">
+            <p className="text-left">
+              <Link to="/auth/login">Back to login</Link>
+            </p>
+          </Col>
+          <Col sm="6">
+            <p className="text-right">
+              Need an account. <Link to="/auth/register">Sign Up</Link>
+            </p>
+          </Col>
+        </Row>
         <p className="mt-4 mb-3 text-muted">
           <small>&copy; stakeways - {new Date().getFullYear()}</small>
         </p>
@@ -54,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: "16px"
   },
   inputEmail: {
-    marginBottom: "-1px",
+    marginBottom: "-1px"
   },
   inputPassword: {
     marginBottom: "10px",
