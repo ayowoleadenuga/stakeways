@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { StyleSheet, css } from "aphrodite";
-import logo from "../../logo.png";
 import backgroundImage from "../../lottery.jpg";
 import { styleConstants } from "../../_constants";
 import { Route, Switch } from "react-router-dom";
 
-/* import LoginComponent from "./Login"; */
+import Login from "./Login/Login";
+import Register from "./Register/Register";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import ResetPassword from "./ResetPassword/ResetPassword";
+
 
 class Account extends Component {
   render() {
@@ -36,46 +39,6 @@ class Account extends Component {
                       component={ResetPassword}
                     />
                   </Switch>
-                  <img className="mb-4" src={logo} alt="" height="72" />
-                  <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
-                  <label for="inputEmail" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    id="inputEmail"
-                    className={`${css(
-                      styles.formControl,
-                      styles.inputEmail
-                    )} form-control`}
-                    placeholder="Email address"
-                    required
-                    autofocus
-                  />
-                  <label for="inputPassword" className="sr-only">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    className={`${css(
-                      styles.formControl,
-                      styles.inputPassword
-                    )} form-control`}
-                    placeholder="Password"
-                    required
-                  />
-                  <button
-                    className={`${css(
-                      styles.button
-                    )} btn mt-4 btn-lg btn-primary btn-block`}
-                    type="submit"
-                  >
-                    Sign in
-                  </button>
-                  <p className="mt-4 mb-3 text-muted">
-                    <small>&copy; stakeways - {new Date().getFullYear()}</small>
-                  </p>
                 </div>
               </Col>
             </Row>
