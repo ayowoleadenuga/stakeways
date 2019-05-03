@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Button, Row, Col} from "reactstrap";
+import { Button /* Row, Col */ } from "reactstrap";
 import { MdReceipt, MdPayment } from "react-icons/md";
 import "./edet.css";
 import HistoryTable from "./BetHistoryTable";
 import TransactionHistoryTable from "./TransactionHistoryTable";
-
 
 class ManageHistory extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class ManageHistory extends Component {
       isTransactionClick: false,
       error: null,
       fetching: false,
-      submitting:false
+      submitting: false
     };
   }
 
@@ -39,16 +38,10 @@ class ManageHistory extends Component {
     }
   };
   render() {
-    const { isBetClick, isTransactionClick, error, fetching ,submitting} = this.state;
+    const { isBetClick, isTransactionClick, error, fetching } = this.state;
 
     return (
       <div>
-      
-        
-      
-        
-      
-      
         <div className="btn-group mb-4">
           <Button
             color="danger"
