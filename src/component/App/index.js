@@ -31,7 +31,7 @@ class MainApp extends Component {
                   <Route
                     key={route.key}
                     exact={route.exact}
-                    path={`${match.url}${route.path}`}
+                    path={`${match.path}${route.path}`}
                     name={route.name}
                     component={route.pageComponent}
                   />
