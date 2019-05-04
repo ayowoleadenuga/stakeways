@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import {
   Row,
   Col,
-  UncontrolledAlert,
+  // UncontrolledAlert,
   Card,
   Button,
-  CardHeader,
-  CardImg,
+  // CardHeader,
+  // CardImg,
   CardBody,
 } from "reactstrap";
-import { MdAdd, MdPayment } from "react-icons/md";
+import { /* MdAdd, */ MdPayment } from "react-icons/md";
 import Formsy from "formsy-react";
 import { TextInput } from "../../../shared/Forms/TextInput";
 

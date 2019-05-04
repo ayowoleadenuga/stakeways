@@ -72,34 +72,8 @@ const styles = StyleSheet.create({
   formSignin: {
     width: "100%",
     maxWidth: "1024px",
-    textAlign: "center",
     boxShadow: "0 0 12px #2e2e2e",
     margin: "auto"
-  },
-  formControl: {
-    position: "relative",
-    boxSizing: "border-box",
-    height: "auto",
-    padding: "10px",
-    fontSize: "14px",
-    ":focus": {
-      zIndex: "2"
-    }
-  },
-  button: {
-    backgroundColor: styleConstants.secondaryColor,
-    borderColor: styleConstants.secondaryColor,
-    fontSize: "16px"
-  },
-  inputEmail: {
-    marginBottom: "-1px",
-    borderBottomRightRadius: "0",
-    borderBottomLeftRadius: "0"
-  },
-  inputPassword: {
-    marginBottom: "10px",
-    borderTopLeftRadius: "0",
-    borderTopRightRadius: "0"
   }
 });
 

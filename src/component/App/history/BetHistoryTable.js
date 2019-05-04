@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardHeader, CardBody, UncontrolledAlert } from "reactstrap";
 import DataTable from "../../../shared/DataTable";
-import { MdDone, MdClear, MdRefresh } from "react-icons/md";
+import { MdDone,/* MdClear,  MdRefresh */ } from "react-icons/md";
 
 import Moment from "moment";
 import { GoClock } from "react-icons/go";
@@ -77,13 +77,13 @@ const Confirmed = () => {
     </span>
   );
 };
-const Declined = () => {
+/* const Declined = () => {
   return (
     <span style={{ color: "red" }}>
       <MdClear /> Declined
     </span>
   );
-};
+}; */
 
 const Pending = () => {
   return (
@@ -214,10 +214,10 @@ export class HistoryTable extends Component {
         ),
         filterMethod: (filter, row) => {
           if (filter.value === "CONFIRMED") {
-            return row[filter.id] == "CONFIRMED";
+            return row[filter.id] === "CONFIRMED";
           }
           if (filter.value === "PENDING") {
-            return row[filter.id] == "PENDING";
+            return row[filter.id] === "PENDING";
           }
           return row[filter.id];
         },
@@ -245,13 +245,13 @@ export class HistoryTable extends Component {
       fetching,
       data,
       error,
-      selectRow,
+      /* selectRow,
       pages,
       page,
       pageSize,
       setPageNumber,
       filterData,
-      setPageSize,
+      setPageSize, */
       refreshData
     } = this.props;
 

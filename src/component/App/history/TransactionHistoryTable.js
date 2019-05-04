@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Card, CardHeader, CardBody, UncontrolledAlert } from "reactstrap";
 import DataTable from "../../../shared/DataTable";
-import { MdDone, MdClear, MdRefresh } from "react-icons/md";
+// import { MdDone, MdClear, MdRefresh } from "react-icons/md";
 
 import Moment from "moment";
-import { GoClock } from "react-icons/go";
+// import { GoClock } from "react-icons/go";
 import "./edet.css";
 
 //inline styling object:
@@ -162,13 +162,13 @@ export class TransactionHistoryTable extends Component {
       fetching,
       data,
       error,
-      selectRow,
+      /* selectRow,
       pages,
       page,
       pageSize,
       setPageNumber,
       filterData,
-      setPageSize,
+      setPageSize, */
       refreshData
     } = this.props;
 

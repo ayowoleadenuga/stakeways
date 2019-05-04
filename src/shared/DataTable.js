@@ -10,7 +10,7 @@ class DataTable extends Component {
   render() {
     const {
       data,
-      count,
+      // count,
       manual,
       pages,
       page,
@@ -18,15 +18,15 @@ class DataTable extends Component {
       columns,
       defaultPageSize,
       loading,
-      filterData,
+      /* filterData,
       hideActions,
       setPageNumber,
       setPageSize,
       searchParam,
       actions,
-      searchPlaceholder,
+      searchPlaceholder, */
       hideSearchParam,
-      countTitle,
+     // countTitle,
       refreshData,
       disabled,
       shiftRefeshButton,
