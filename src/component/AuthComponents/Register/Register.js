@@ -1,88 +1,122 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import Formsy from "formsy-react";
+import { TextInput } from "../../../shared/Forms/TextInput";
+import { Spinner } from "../../../shared";
+import { MyCheckbox } from "../../../shared/Forms/Checkbox";
+import { MySelect } from "../../../shared/Forms/Select";
 
 export default class Register extends Component {
+  state = {
+    canSubmit: false
+  };
+
+  disableButton = () => {
+    this.setState({ canSubmit: false });
+  };
+
+  enableButton = () => {
+    this.setState({ canSubmit: true });
+  };
+
+  handleSubmit = data => {
+    console.log(data);
+  };
   render() {
+    const { canSubmit } = this.state;
+    const { submitting } = this.props;
     return (
       <div>
         <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
-        <label for="inputEmail" className="sr-only">
-          Given Name
-        </label>
-        <input
-          id="inputEmail"
-          className={`${css(
-            styles.formControl,
-            styles.inputEmail
-          )} form-control`}
-          placeholder="Given name"
-          required
-          autofocus
-        />
-        <label for="inputEmail" className="sr-only">
-          Last Name
-        </label>
-        <input
-          id="inputEmail"
-          className={`${css(
-            styles.formControl,
-            styles.input
-          )} form-control`}
-          placeholder="Last name"
-          required
-          autofocus
-        />
-        <label for="inputEmail" className="sr-only">
-          Email address
-        </label>
-        <input
-          type="email"
-          id="inputEmail"
-          className={`${css(
-            styles.formControl,
-            styles.input
-          )} form-control`}
-          placeholder="Email address"
-          required
-          autofocus
-        />
-        <label for="inputPassword" className="sr-only">
-          Password
-        </label>
-        <input
-          type="password"
-          id="inputPassword"
-          className={`${css(
-            styles.formControl,
-            styles.input
-          )} form-control`}
-          placeholder="Password"
-          required
-        />
-        <label for="inputPassword" className="sr-only">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          id="inputPassword"
-          className={`${css(
-            styles.formControl,
-            styles.inputPassword
-          )} form-control`}
-          placeholder="Confirm Password"
-          required
-        />
-        <button
-          className={`${css(
-            styles.button
-          )} btn mt-4 btn-lg btn-primary btn-block`}
-          type="submit"
+        <Formsy
+          ref="resetPasswordForm"
+          onValidSubmit={this.handleSubmit}
+          onValid={this.enableButton}
+          onInvalid={this.disableButton}
+          noValidate
         >
-          Sign up
-        </button>
+          <div className="grouped-form">
+            <TextInput
+              name="givenName"
+              title="Given Name"
+              validating={submitting}
+              type="text"
+              required
+            />
+            <TextInput
+              name="lastName"
+              title="Last Name"
+              validating={submitting}
+              type="text"
+              required
+            />
+            <TextInput
+              name="email"
+              title="Email"
+              validating={submitting}
+              type="email"
+              required
+            />
+            <TextInput
+              name="password"
+              title="Password"
+              validating={submitting}
+              type="password"
+              required
+            />
+            <TextInput
+              name="confirmPassword"
+              title="Confirm Password"
+              validating={submitting}
+              type="password"
+              required
+            />
+            <MySelect
+              name="gender"
+              value={null}
+              placeholder="Select gender"
+              options={[{value: "male", label: "Male"},{value: "female", label: "Female"}]}
+              valueKey="vlue"
+              disabled={submitting}
+              labelKey="label"
+              validating={submitting}
+              innerRef={c => {
+                this.sex = c;
+              }}
+              isClearable={true}
+              required
+            />
+          </div>
+          <div className="my-3">
+            <MyCheckbox
+              name="terms"
+              title="I accept the terms and conditions"
+              validating={submitting}
+              value={false}
+            />
+
+            <MyCheckbox
+              name="ageCheck"
+              title="I am over 18"
+              value={false}
+              validating={submitting}
+            />
+          </div>
+
+          <Button
+            type="submit"
+            className={`${css(
+              styles.button
+            )} btn mt-4 btn-lg btn-primary btn-block`}
+            color="primary"
+            disabled={!canSubmit || submitting}
+          >
+            {submitting ? <Spinner /> : "Submit"}
+          </Button>
+        </Formsy>
 
         <Row className="my-3">
           <Col>
