@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button } from "reactstrap";
-
+import { Button, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 import { TextInput } from "../../../shared/Forms/TextInput";
 import Formsy from "formsy-react";
 import { StyleSheet, css } from "aphrodite";
@@ -41,7 +41,7 @@ export default class Login extends Component {
               name="email"
               title="Email"
               validating={submitting}
-              type="text"
+              type="email"
               required
             />
             <TextInput
@@ -62,6 +62,18 @@ export default class Login extends Component {
           >
             {submitting ? <Spinner /> : "Submit"}
           </Button>
+          <Row className="my-3">
+            <Col sm="6">
+              <p className="text-left">
+                Need an account. <Link to="/auth/register">Sign Up</Link>
+              </p>
+            </Col>
+            <Col sm="6">
+              <p className="text-right">
+                <Link to="/auth/forgot-password">Forgot password?</Link>
+              </p>
+            </Col>
+          </Row>
         </Formsy>
         <p className="mt-4 mb-3 text-muted">
           <small>&copy; stakeways - {new Date().getFullYear()}</small>

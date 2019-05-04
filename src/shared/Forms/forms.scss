@@ -1,12 +1,16 @@
 :root {
   --input-padding-x: 0.75rem;
-  --input-padding-y: 0.55rem;
+  --input-padding-y: 0.75rem;
 }
 
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;
   text-align: left;
+  .form-control {
+    height: 3.2rem !important;
+    margin-top: -1px;
+  }
   label {
     position: absolute;
     top: 0;

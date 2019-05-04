@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   formSignin: {
     width: "100%",
     maxWidth: "1024px",
-    textAlign: "center",
     boxShadow: "0 0 12px #2e2e2e",
     margin: "auto"
   }
