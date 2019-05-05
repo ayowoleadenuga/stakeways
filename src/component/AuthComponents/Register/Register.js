@@ -58,6 +58,12 @@ export default class Register extends Component {
               title="Email"
               validating={submitting}
               type="email"
+              validations={{
+                isEmail: true
+              }}
+              validationErrors={{
+                isEmail: "You have to type valid email"
+              }}
               required
             />
             <TextInput
@@ -65,6 +71,12 @@ export default class Register extends Component {
               title="Password"
               validating={submitting}
               type="password"
+              validations={{
+                minLength: 4
+              }}
+              validationErrors={{
+                minLength: "You have to type at least 4 characters"
+              }}
               required
             />
             <TextInput
@@ -72,6 +84,12 @@ export default class Register extends Component {
               title="Confirm Password"
               validating={submitting}
               type="password"
+              validations={{
+                equalsField: "password"
+              }}
+              validationErrors={{
+                equalsField: "Passwords have to match"
+              }}
               required
             />
             <MySelect
@@ -79,7 +97,7 @@ export default class Register extends Component {
               value={null}
               placeholder="Select gender"
               options={[{value: "male", label: "Male"},{value: "female", label: "Female"}]}
-              valueKey="vlue"
+              valueKey="value"
               disabled={submitting}
               labelKey="label"
               validating={submitting}
@@ -96,6 +114,7 @@ export default class Register extends Component {
               title="I accept the terms and conditions"
               validating={submitting}
               value={false}
+              required="isFalse"
             />
 
             <MyCheckbox
@@ -103,6 +122,7 @@ export default class Register extends Component {
               title="I am over 18"
               value={false}
               validating={submitting}
+              required="isFalse"
             />
           </div>
 

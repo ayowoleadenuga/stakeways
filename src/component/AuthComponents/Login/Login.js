@@ -42,6 +42,12 @@ export default class Login extends Component {
               title="Email"
               validating={submitting}
               type="email"
+              validations={{
+                isEmail: true
+              }}
+              validationErrors={{
+                isEmail: "You have to type valid email"
+              }}
               required
             />
             <TextInput
