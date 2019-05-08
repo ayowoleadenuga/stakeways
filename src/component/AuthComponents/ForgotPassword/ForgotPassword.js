@@ -41,6 +41,12 @@ export default class ForgotPassword extends Component {
             title="Email"
             validating={submitting}
             type="email"
+            validations={{
+              isEmail: true
+            }}
+            validationErrors={{
+              isEmail: "You have to type valid email"
+            }}
             required
           />
           <Button

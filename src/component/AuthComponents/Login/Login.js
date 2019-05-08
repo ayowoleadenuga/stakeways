@@ -6,6 +6,7 @@ import Formsy from "formsy-react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
 import { Spinner } from "../../../shared";
+import { MyCheckbox } from "../../../shared/Forms/Checkbox";
 export default class Login extends Component {
   state = {
     canSubmit: false
@@ -42,6 +43,12 @@ export default class Login extends Component {
               title="Email"
               validating={submitting}
               type="email"
+              validations={{
+                isEmail: true
+              }}
+              validationErrors={{
+                isEmail: "You have to type valid email"
+              }}
               required
             />
             <TextInput
@@ -50,6 +57,14 @@ export default class Login extends Component {
               validating={submitting}
               type="password"
               required
+            />
+          </div>
+          <div className="my-3">
+            <MyCheckbox
+              name="remeberClient"
+              title="Remember me"
+              validating={submitting}
+              value={false}
             />
           </div>
           <Button

@@ -13,10 +13,16 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-icons": "^3.5.0",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-select": "^2.4.3",
     "react-table": "^6.10.0",
     "reactstrap": "^8.0.0",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0"
   },
   "scripts": {

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     fontFamily: "Rubik, sans-serif",
-    height: "100%",
+    minHeight: "100%",
     backgroundColor: styleConstants.primaryColor
   },
   marketingContent: {
