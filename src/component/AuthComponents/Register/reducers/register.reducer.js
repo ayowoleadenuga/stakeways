@@ -35,6 +35,11 @@ export const register = (state = initialState, action) => {
         response: null,
         error: action.error
       };
+    case registerConstants.REGISTER_RESET:
+      return {
+        ...state,
+        ...initialState
+      };
     default:
       return state;
   }

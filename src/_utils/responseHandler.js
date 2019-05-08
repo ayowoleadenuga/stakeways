@@ -38,7 +38,7 @@ export const handleResponse = response => {
 
   return response.json().then(json => {
     const error = new Error(
-      json.message ||
+      json.error.message ||
         json.Message ||
         json.responseMessage ||
         json.error ||
