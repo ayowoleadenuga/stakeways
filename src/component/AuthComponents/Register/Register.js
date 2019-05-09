@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { submitting, submitted, request, response, error } = state.register;
+  const { submitting, submitted, request, response, error } = state.auth;
   const { type, message, section } = state.alert;
 
   return {
