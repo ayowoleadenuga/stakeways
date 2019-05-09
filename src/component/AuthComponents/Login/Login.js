@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import { Button, Row, Col } from "reactstrap";
+import { Button, Row, Col, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import { TextInput } from "../../../shared/Forms/TextInput";
 import Formsy from "formsy-react";
 import { StyleSheet, css } from "aphrodite";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import { styleConstants } from "../../../_constants";
 import { Spinner } from "../../../shared";
 import { MyCheckbox } from "../../../shared/Forms/Checkbox";
-export default class Login extends Component {
+
+import { authActions } from "./actions/auth.actions";
+import { alertActions } from "../../Alert/actions/alert.actions";
+
+class Login extends Component {
   state = {
     canSubmit: false
   };
@@ -20,13 +27,21 @@ export default class Login extends Component {
     this.setState({ canSubmit: true });
   };
 
+  componentDidMount() {
+    this.props.clearAlerts();
+  }
+
+  componentWillUnmount() {
+    this.props.clearAlerts();
+  }
+
   handleSubmit = data => {
-    console.log(data);
+    this.props.login(data);
   };
 
   render() {
     const { canSubmit } = this.state;
-    const { submitting } = this.props;
+    const { submitting, type, message } = this.props;
     return (
       <div>
         <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
@@ -37,9 +52,10 @@ export default class Login extends Component {
           onInvalid={this.disableButton}
           noValidate
         >
+          {message && <Alert color={type}>{message}</Alert>}
           <div className="grouped-form">
             <TextInput
-              name="email"
+              name="userNameOrEmailAddress"
               title="Email"
               validating={submitting}
               type="email"
@@ -105,3 +121,31 @@ const styles = StyleSheet.create({
     fontSize: "16px"
   }
 });
+
+const mapStateToProps = state => {
+  const { submitting, submitted, request, response, error } = state.auth;
+  const { type, message, section } = state.alert;
+
+  return {
+    submitting,
+    submitted,
+    request,
+    response,
+    error,
+    type,
+    section,
+    message
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: bindActionCreators(authActions.login, dispatch),
+    clearAlerts: bindActionCreators(alertActions.clear, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

@@ -35,6 +35,11 @@ export const auth = (state = initialState, action) => {
         response: null,
         error: action.error
       };
+    case authConstants.LOGIN_RESET:
+      return {
+        ...state,
+        ...initialState
+      };
     case authConstants.LOGOUT:
       return {
         ...state,
