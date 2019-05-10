@@ -8,7 +8,7 @@ export class TextInputComponent extends React.Component {
     super(props);
   }
   changeValue = event => {
-    console.log(event.target.value)
+    
     if (
       event.target.value === "" ||
       this.props.isValidValue(event.target.value) ||

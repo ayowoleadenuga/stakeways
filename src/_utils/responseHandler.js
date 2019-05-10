@@ -1,4 +1,4 @@
-import { message } from "../_constants";
+//import { message } from "../_constants";
 
 let xsrfToken;
 let xsrfTokenHeader;
@@ -6,7 +6,7 @@ let xsrfTokenHeader;
 if (process.env.NODE_ENV === "development") {
   xsrfTokenHeader = "X-XSRF-TOKEN";
   xsrfToken = "75186e5b-4f46-45c7-ac7c-eb0a65b19309";
-  // ALWAYS GET FROM ISW-PORTAL-V2
+
 } else {
   xsrfToken = document.getElementById("csrf-token")
     ? document.getElementById("csrf-token").getAttribute("content")
@@ -26,7 +26,8 @@ const createUrlParams = params => {
 };
 
 export const basicHeader = {
-  "Content-Type": "application/json"
+  "Content-Type": "application/json",
+  "Accept": "application/json"
 };
 
 export const handleResponse = response => {
@@ -41,8 +42,8 @@ export const handleResponse = response => {
       json.message ||
         json.Message ||
         json.responseMessage ||
-        json.error ||
-        message.GENERIC_ERROR
+        json.error 
+       // message.GENERIC_ERROR
     );
     return Promise.reject(Object.assign(error, { response }));
   });
@@ -51,9 +52,9 @@ export const handleResponse = response => {
 export const apiCall = (requestType, url, requestBody, requestParams) => {
   let headers = { ...basicHeader };
   
-  if (xsrfToken && xsrfTokenHeader) {
-    headers[xsrfTokenHeader] = xsrfToken;
-  }
+  // if (xsrfToken && xsrfTokenHeader) {
+  //   headers[xsrfTokenHeader] = xsrfToken;
+  // }
   const requestOptions = {
     method: requestType,
     headers,

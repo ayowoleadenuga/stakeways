@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Button, Row, Col} from "reactstrap";
+import { Button } from "reactstrap";
 import { MdReceipt, MdPayment } from "react-icons/md";
 import "./edet.css";
 import HistoryTable from "./BetHistoryTable";
 import TransactionHistoryTable from "./TransactionHistoryTable";
-
+import { historyService } from "./service/HistoryServices";
 
 class ManageHistory extends Component {
   constructor(props) {
@@ -14,41 +14,72 @@ class ManageHistory extends Component {
       isTransactionClick: false,
       error: null,
       fetching: false,
-      submitting:false
+      submitting: false,
+      id: 1004,
     };
   }
+  componentDidMount() {
+    //this.getUserLoginDetails(userDetails);//still undergoing testing..
+    this.getBetHistory(this.state.id);
+  }
+
+  getUserLoginDetails = data => {
+    this.setState({
+      fetching: true,
+    });
+    historyService
+      .login(data)
+      .then(response => {
+        this.setState({
+          response,
+          fetching: false,
+        });
+      })
+
+      .catch(error => this.setState({ formError: error, fetching: false }));
+  };
+
+  getBetHistory = params => {
+    this.setState({ fetching: true });
+    historyService
+      .getAllBetsHistory(params)
+      .then(response => {
+        response &&
+          this.setState({
+            error: null,
+            fetching: false,
+          });
+      })
+      .catch(error => this.setState({ error, fetching: false }));
+  };
 
   betHistoryClick = () => {
     this.setState({ isBetClick: true, isTransactionClick: false });
-    //set the bethistory table
   };
 
   transactionHistoryClick = () => {
     this.setState({ isBetClick: false, isTransactionClick: true });
-    //set the transactionhistory table...
   };
 
   refreshData = () => {
     if (this.state.isBetClick) {
       this.setState({ fetching: true });
-      //call end point to fetch the bet history data..
     }
     if (this.state.isTransactionClick) {
       this.setState({ fetching: true });
-      //call end point to fetch the transaction history data..
     }
   };
   render() {
-    const { isBetClick, isTransactionClick, error, fetching ,submitting} = this.state;
+    const {
+      isBetClick,
+      isTransactionClick,
+      error,
+      fetching,
+      submitting,
+    } = this.state;
 
     return (
       <div>
-      
-        
-      
-        
-      
-      
         <div className="btn-group mb-4">
           <Button
             color="danger"

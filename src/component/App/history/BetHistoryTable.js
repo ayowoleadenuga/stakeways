@@ -7,6 +7,36 @@ import Moment from "moment";
 import { GoClock } from "react-icons/go";
 import "./edet.css";
 
+const testingData = [
+  {
+    userId: "string",
+    playerId: "string",
+    stack: "string",
+    lines: "string",
+    numbers: "string",
+    creationTime: "2019-05-02T13:44:01.825Z",
+    betstate: 0,
+    gameId: 0,
+    games: {
+      name: "string",
+      startDate: "2019-05-02T13:44:01.825Z",
+      endDate: "2019-05-02T13:44:01.825Z",
+      datePlayed: "string",
+      price: 0,
+      gameTypeId: 0,
+      organizationId: 0,
+      organization: {
+        name: "string",
+        creationDate: "2019-05-02T13:44:01.825Z",
+        createdBy: 0,
+        id: 0,
+      },
+      id: 0,
+    },
+    id: 0,
+  },
+];
+
 //inline styling object:
 const formatTable = {
   backgroundColor: "#313340",
@@ -93,9 +123,31 @@ const Pending = () => {
   );
 };
 
+const map = (array, fn) => {
+  let results = [];
+  for (const value of array) {
+    results.push(fn(value));
+  }
+  
+  return results;
+};
 export class HistoryTable extends Component {
   state = {
     status: "all",
+  };
+
+  componentDidMount() {
+    const pp = this.refineData(testingData);
+     console.log(pp);
+  }
+
+  refineData = data => {
+    
+   const newData= map(data, content => {
+    
+      return { userId: content.userId };
+    });
+    return newData
   };
 
   changeValue = event => {
@@ -252,7 +304,7 @@ export class HistoryTable extends Component {
       setPageNumber,
       filterData,
       setPageSize,
-      refreshData
+      refreshData,
     } = this.props;
 
     return (
