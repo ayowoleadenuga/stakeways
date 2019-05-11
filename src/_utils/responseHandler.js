@@ -1,5 +1,3 @@
-import { message } from "../_constants";
-
 const createUrlParams = params => {
   const esc = encodeURIComponent;
   const query = Object.keys(params)
@@ -21,14 +19,7 @@ export const handleResponse = response => {
   }
 
   return response.json().then(json => {
-    const error = new Error(
-      json.error.message ||
-        json.Message ||
-        json.responseMessage ||
-        json.error ||
-        message.GENERIC_ERROR
-    );
-    return Promise.reject(Object.assign(error, { response }));
+    return Promise.reject(json.error);
   });
 };
 
