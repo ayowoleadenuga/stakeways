@@ -100,7 +100,7 @@ class TransactionForm extends Component {
                     {" "}
                     <span style={{ color: "white" }}>
                       {" "}
-                      <MdPayment /> Pay Stack
+                      <MdPayment /> Pay With PayStack
                     </span>
                   </Button>
                 </Formsy>
