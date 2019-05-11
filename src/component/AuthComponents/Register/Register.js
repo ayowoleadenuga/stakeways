@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
-import { Row, Col, Button } from "reactstrap";
+import { Row, Col, Button, Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import Formsy from "formsy-react";
 import { TextInput } from "../../../shared/Forms/TextInput";
@@ -9,10 +9,30 @@ import { Spinner } from "../../../shared";
 import { MyCheckbox } from "../../../shared/Forms/Checkbox";
 import { MySelect } from "../../../shared/Forms/Select";
 
-export default class Register extends Component {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { registerActions } from "./actions/register.actions";
+import { alertActions } from "../../Alert/actions/alert.actions";
+
+class Register extends Component {
   state = {
     canSubmit: false
   };
+
+  componentDidMount(){
+    this.props.clearAlerts();
+  }
+
+  componentWillUnmount() {
+    this.props.clearAlerts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.submitted) {
+      this.refs.registerForm.reset();
+    }
+  }
 
   disableButton = () => {
     this.setState({ canSubmit: false });
@@ -23,16 +43,18 @@ export default class Register extends Component {
   };
 
   handleSubmit = data => {
-    console.log(data);
+    this.props.register(data);
   };
+
   render() {
     const { canSubmit } = this.state;
-    const { submitting } = this.props;
+    const { submitting, type, message } = this.props;
     return (
       <div>
         <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
+        {message && <Alert color={type}>{message}</Alert>}
         <Formsy
-          ref="resetPasswordForm"
+          ref="registerForm"
           onValidSubmit={this.handleSubmit}
           onValid={this.enableButton}
           onInvalid={this.disableButton}
@@ -40,24 +62,37 @@ export default class Register extends Component {
         >
           <div className="grouped-form">
             <TextInput
-              name="givenName"
+              name="name"
               title="Given Name"
               validating={submitting}
               type="text"
               required
             />
             <TextInput
-              name="lastName"
+              name="surname"
               title="Last Name"
               validating={submitting}
               type="text"
               required
             />
             <TextInput
-              name="email"
+              name="userName"
+              title="User Name"
+              validating={submitting}
+              type="text"
+              required
+            />
+            <TextInput
+              name="emailAddress"
               title="Email"
               validating={submitting}
               type="email"
+              validations={{
+                isEmail: true
+              }}
+              validationErrors={{
+                isEmail: "You have to type valid email"
+              }}
               required
             />
             <TextInput
@@ -65,6 +100,12 @@ export default class Register extends Component {
               title="Password"
               validating={submitting}
               type="password"
+              validations={{
+                minLength: 4
+              }}
+              validationErrors={{
+                minLength: "You have to type at least 4 characters"
+              }}
               required
             />
             <TextInput
@@ -72,14 +113,23 @@ export default class Register extends Component {
               title="Confirm Password"
               validating={submitting}
               type="password"
+              validations={{
+                equalsField: "password"
+              }}
+              validationErrors={{
+                equalsField: "Passwords have to match"
+              }}
               required
             />
             <MySelect
               name="gender"
               value={null}
               placeholder="Select gender"
-              options={[{value: "male", label: "Male"},{value: "female", label: "Female"}]}
-              valueKey="vlue"
+              options={[
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" }
+              ]}
+              valueKey="value"
               disabled={submitting}
               labelKey="label"
               validating={submitting}
@@ -96,6 +146,7 @@ export default class Register extends Component {
               title="I accept the terms and conditions"
               validating={submitting}
               value={false}
+              required="isFalse"
             />
 
             <MyCheckbox
@@ -103,6 +154,7 @@ export default class Register extends Component {
               title="I am over 18"
               value={false}
               validating={submitting}
+              required="isFalse"
             />
           </div>
 
@@ -165,3 +217,30 @@ const styles = StyleSheet.create({
     borderTopRightRadius: "0"
   }
 });
+
+const mapStateToProps = state => {
+  const { submitting, submitted, request, response, error } = state.auth;
+  const { type, message } = state.alert;
+
+  return {
+    submitting,
+    submitted,
+    request,
+    response,
+    error,
+    type,
+    message
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    register: bindActionCreators(registerActions.register, dispatch),
+    clearAlerts: bindActionCreators(alertActions.clear, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);

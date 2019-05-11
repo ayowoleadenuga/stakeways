@@ -3,10 +3,6 @@ import { withFormsy } from "formsy-react";
 import { FormGroup, FormFeedback, Label } from "reactstrap";
 import Select from "react-select";
 
-const Styles = {
-  control: styles => ({ ...styles, borderRadius: "0", marginTop: "-1px" })
-};
-
 export class MySelectComponent extends React.Component {
   state = {
     selectedOption: null
@@ -40,7 +36,7 @@ export class MySelectComponent extends React.Component {
     const { selectedOption } = this.state;
     const hasError = !isPristine() && (showError() || !hasValue());
     return (
-      <FormGroup className="mb-0">
+      <FormGroup className="mb-0 form-label-group">
         {title && (
           <Label className={isRequired() && "required"} htmlFor={name}>
             {title}
@@ -48,7 +44,14 @@ export class MySelectComponent extends React.Component {
         )}
         <Select
           value={getValue() || selectedOption}
-          styles={Styles}
+          styles={{
+            control: styles => ({
+              ...styles,
+              borderRadius: "0",
+              marginTop: "-1px",
+              borderColor: showRequired() && !isPristine() ? "red" : "#ced4da"
+            })
+          }}
           className={hasError ? "is-invalid" : ""}
           placeholder={placeholder}
           options={options}
@@ -59,8 +62,24 @@ export class MySelectComponent extends React.Component {
           getOptionLabel={option => option[labelKey]}
           getOptionValue={option => option[valueKey]}
         />
-        {hasError ? <FormFeedback>{errorMessage}</FormFeedback> : ""}
-        {showRequired() ? <FormFeedback>Required</FormFeedback> : ""}
+        {hasError ? (
+          <FormFeedback style={{ display: hasError ? "block" : "none" }}>
+            {errorMessage}
+          </FormFeedback>
+        ) : (
+          ""
+        )}
+        {showRequired() ? (
+          <FormFeedback
+            style={{
+              display: showRequired() && !isPristine() ? "block" : "none"
+            }}
+          >
+            Required
+          </FormFeedback>
+        ) : (
+          ""
+        )}
       </FormGroup>
     );
   }

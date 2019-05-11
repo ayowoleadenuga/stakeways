@@ -42,6 +42,12 @@ export default class ResetPassword extends Component {
               title="Password"
               validating={submitting}
               type="password"
+              validations={{
+                minLength: 4
+              }}
+              validationErrors={{
+                minLength: "You have to type at least 4 characters"
+              }}
               required
             />
             <TextInput
@@ -49,6 +55,12 @@ export default class ResetPassword extends Component {
               title="Confirm Password"
               validating={submitting}
               type="password"
+              validations={{
+                equalsField: "password"
+              }}
+              validationErrors={{
+                equalsField: "Passwords have to match"
+              }}
               required
             />
           </div>
