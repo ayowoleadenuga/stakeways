@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "react-router-dom";
+import { Router, Switch } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { history } from "./_utils";
@@ -16,17 +16,19 @@ class App extends Component {
     const { submitted: loggedIn, logout } = this.props;
     return (
       <Router history={history}>
-        <PrivateRoute
-          loggedIn={loggedIn}
-          path="/app"
-          logOut={logout}
-          component={MainApp}
-        />
-        <PublicOnlyRoute
-          loggedIn={loggedIn}
-          path="/auth"
-          component={Account}
-        />
+        <Switch>
+          <PrivateRoute
+            loggedIn={loggedIn}
+            path="/app"
+            logOut={logout}
+            component={MainApp}
+          />
+          <PublicOnlyRoute
+            loggedIn={loggedIn}
+            path="/auth"
+            component={Account}
+          />
+        </Switch>
       </Router>
     );
   }
