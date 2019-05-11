@@ -103,13 +103,13 @@ const mockData = [
 const Confirmed = () => {
   return (
     <span style={{ color: "green" }}>
-      <MdDone /> Confirmed
+      <MdDone /> Completed
     </span>
   );
 };
 const Declined = () => {
   return (
-    <span style={{ color: "red" }}>
+    <span style={{ color: "#FF6347" }}>
       <MdClear /> Declined
     </span>
   );
@@ -117,8 +117,33 @@ const Declined = () => {
 
 const Pending = () => {
   return (
-    <span style={{ color: "red" }}>
+    <span style={{ color: "grey" }}>
       <GoClock /> Pending
+    </span>
+  );
+};
+
+const Rejected = () => {
+  return (
+    <span style={{ color: "red" }}>
+      <MdClear /> Rejected
+    </span>
+  );
+};
+
+
+const Processing= () => {
+  return (
+    <span style={{ color: "yellow" }}>
+      <GoClock /> Processing
+    </span>
+  );
+};
+
+const Unconfirmed= () => {
+  return (
+    <span style={{ color: "grey" }}>
+      Unconfirmed
     </span>
   );
 };
@@ -136,10 +161,7 @@ export class HistoryTable extends Component {
     status: "all",
   };
 
-  componentDidMount() {
-    const pp = this.refineData(testingData);
-     console.log(pp);
-  }
+  
 
   refineData = data => {
     
@@ -162,7 +184,7 @@ export class HistoryTable extends Component {
     const columns = [
       {
         Header: "Organisation",
-        accessor: "organisation",
+        accessor: "games.organization.name",
         maxWidth: 400,
         Filter: ({ filter, onChange }) => (
           <input
@@ -180,14 +202,14 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Game",
-        accessor: "game",
+        accessor: "games.name",
         style: {
           textAlign: "center",
         },
       },
       {
         Header: "Numbers",
-        accessor: "no",
+        accessor: "numbers",
 
         Filter: ({ filter, onChange }) => (
           <input
@@ -205,7 +227,7 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Amount",
-        accessor: "amount",
+        accessor: "games.price",
 
         Filter: ({ filter, onChange }) => (
           <input
@@ -223,7 +245,7 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Date Created",
-        id: "date",
+        id: "games.organization.creationDate",
         accessor: d => {
           return Moment(d.submittedOn)
             .local()
@@ -246,22 +268,28 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Status",
-        accessor: "status",
+        accessor: "betstate",
 
         maxWidth: 200,
-        id: "status",
+        id: "be",
         sortable: true,
         filterable: true,
 
         Cell: row => (
           <span>
-            {row.value === "CONFIRMED" ? (
+            {row.value === 0 ? (
+              <Unconfirmed />
+            ) : row.value === 1 ? (
+              <Pending />
+            ) :row.value===2 ?(
+                 <Processing/>      
+            ):row.value===3?(
               <Confirmed />
-            ) : row.value === "PENDING" ? (
-              <Pending />
-            ) : (
-              <Pending />
-            )}
+            ):row.value===4 ?(
+              <Declined />
+            ):row.value===5 ?(
+              <Rejected />
+            ):null}
           </span>
         ),
         filterMethod: (filter, row) => {
@@ -305,8 +333,9 @@ export class HistoryTable extends Component {
       filterData,
       setPageSize,
       refreshData,
+      betHistoryData
     } = this.props;
-
+{console.log("whats is the data",betHistoryData)}
     return (
       <div>
         <Card style={formatTable}>
@@ -325,8 +354,8 @@ export class HistoryTable extends Component {
               loading={fetching}
               disabled={fetching}
               urlParams={match}
-              //  data={data ? data.content : []}
-              data={mockData}
+                data={betHistoryData ? betHistoryData : []}
+             // data={mockData}
               count={data ? data.count : 0}
               defaultPageSize={5}
               refreshData={refreshData}

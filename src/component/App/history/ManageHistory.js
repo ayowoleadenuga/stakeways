@@ -15,14 +15,18 @@ class ManageHistory extends Component {
       error: null,
       fetching: false,
       submitting: false,
-      id: 1004,
+      id: 10004,
+      betHistoryData:null
     };
   }
   componentDidMount() {
-    //this.getUserLoginDetails(userDetails);//still undergoing testing..
+   // this.getUserLoginDetails(userDetails);//still undergoing testing..
     this.getBetHistory(this.state.id);
   }
+componentWillReceiveProps(nextProps){
+  //when transaction button is click..
 
+}
   getUserLoginDetails = data => {
     this.setState({
       fetching: true,
@@ -33,6 +37,7 @@ class ManageHistory extends Component {
         this.setState({
           response,
           fetching: false,
+          
         });
       })
 
@@ -40,16 +45,22 @@ class ManageHistory extends Component {
   };
 
   getBetHistory = params => {
+    
     this.setState({ fetching: true });
     historyService
       .getAllBetsHistory(params)
       .then(response => {
-        response &&
+       console.log("hey",response) ;
           this.setState({
             error: null,
             fetching: false,
+            betHistoryData:response.result
           });
-      })
+      }).then(response=>{
+        console.log("informer>>>",this.state.betHistoryData)
+      }
+       
+      )
       .catch(error => this.setState({ error, fetching: false }));
   };
 
@@ -76,6 +87,7 @@ class ManageHistory extends Component {
       error,
       fetching,
       submitting,
+      betHistoryData
     } = this.state;
 
     return (
@@ -104,6 +116,7 @@ class ManageHistory extends Component {
               error={error}
               fetching={fetching}
               refreshData={this.refreshData}
+              betHistoryData={betHistoryData}
             />
           ) : isTransactionClick ? (
             <TransactionHistoryTable

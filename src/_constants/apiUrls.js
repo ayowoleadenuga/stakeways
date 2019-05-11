@@ -1,50 +1,22 @@
+const corsAnywhere = "https://cors-anywhere.herokuapp.com";
+const endPointUrl = "http://webapi.stakeways.a2hosted.com"
+const apiName = "api";
+const baseUrl = `${corsAnywhere}/${endPointUrl}/${apiName}`;
 
-const apiVersion = "v1";
-const apiName = "http://app.stakeways.a2hosted.com";
-const baseUrl = `${apiName}`;
+export const registerEndpoint = `${baseUrl}/services/app/Account/Register`
+export const authEndpoint = `${baseUrl}/TokenAuth/Authenticate`
+
+
+
+
+
 
 export const apiUrls = {
 history:{
-betHistory:`${baseUrl}/Bet/GetHistory`,
+betHistory:`${endPointUrl}/${apiName}/services/app/Bet/GetByUser`,
 transactionhistory:`${baseUrl}/`,
 login:`${baseUrl}/api/TokenAuth/Authenticate
 `
 },
-//this urls is for test purposes only..
 
-  
-  // schemes: {
-  //   base: `${baseUrl}/schemes`
-  // },
-  // cardtypes: {
-  //   base: `${baseUrl}/cardtypes`
-  // },
-  // idtypes: {
-  //   base: `${baseUrl}/idtypes`
-  // },
-  // issuers: {
-  //   base: `${baseUrl}/issuer`,
-  //   core: `${baseUrl}/issuer/core`
-  // },
-  // domains: {
-  //   base: `${baseUrl}/domains`,
-  //   core: `${baseUrl}/domains/core`
-  // },
-  // clients: {
-  //   base: `${baseUrl}/clients`
-  // },
-  // currencies: {
-  //   base: `${baseUrl}/currencies`,
-  //   core: `${baseUrl}/currencies/core`
-  // },
-  // institutions: {
-  //   base: `${baseUrl}/institutions`
-  // },
-  // configs: {
-  //   base: `${baseUrl}/configs`
-  // },
-  // status: {
-  //   card: `${baseUrl}/cards/status`,
-  //   wallet: `${baseUrl}/wallets/status`
-  // }
 };

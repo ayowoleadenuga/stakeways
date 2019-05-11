@@ -6,10 +6,11 @@ export const historyService = {
   login
   };
   
-  function getAllBetsHistory(params) {
-    return apiCall("GET", `${apiUrls.history.betHistory}`, null, params);
+  function getAllBetsHistory(id) {
+    return apiCall("GET", `${apiUrls.history.betHistory}?Id=${id}`);
+    //apiCall("GET", `${apiUrls.posts.base}/${id}`);
   }
-  
+ //http://webapi.stakeways.a2hosted.com/api/services/app/Bet/GetByUser?Id=10004 
   //pending
 //   function getAllTransactionHistory() {
 //     return apiCall("GET", `${apiUrls.posts.data}`);

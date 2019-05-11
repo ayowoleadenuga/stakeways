@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const createUrlParams = params => {
+  console.log("id>>>",params);
   const esc = encodeURIComponent;
   const query = Object.keys(params)
     .map(k => esc(k) + "=" + esc(params[k]))
@@ -61,8 +62,10 @@ export const apiCall = (requestType, url, requestBody, requestParams) => {
     body: requestBody ? JSON.stringify(requestBody) : undefined
   };
   if (requestParams) {
+   
     const urlParams = createUrlParams(requestParams);
     url = `${url}?${urlParams}`;
+   
   }
   return fetch(url, requestOptions).then(handleResponse);
 };
