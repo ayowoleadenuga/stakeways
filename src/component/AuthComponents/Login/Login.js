@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { submitting, submitted, request, response, error } = state.auth;
-  const { type, message, section } = state.alert;
+  const { type, message } = state.alert;
 
   return {
     submitting,
@@ -133,7 +133,6 @@ const mapStateToProps = state => {
     response,
     error,
     type,
-    section,
     message
   };
 };

@@ -13,24 +13,23 @@ function login(requestBody) {
     dispatch(request());
     try {
       const user = await authService.login(requestBody);
-      if (user && user.access_token) {
-        authService.setToken(user.access_token);
+      if (user && user.result) {
+        authService.setToken(user.result.accessToken);
       }
-      const userDetails = authService.getUserDetails(user);
-      dispatch(success(userDetails));
-      dispatch(reset());
+      // const userDetails = authService.getUserDetails(user);
+      dispatch(success(user));
     } catch (error) {
       dispatch(failure(error));
-      dispatch(alertActions.error("Username or password incorrect"));
+      dispatch(alertActions.error(error.details || error.message));
     }
   };
 
   function request() {
     return { type: authConstants.LOGIN_REQUEST };
   }
-  function success(userDetails) {
+  function success(user) {
     history.push("/app");
-    return { type: authConstants.LOGIN_SUCCESS, userDetails };
+    return { type: authConstants.LOGIN_SUCCESS, response: user };
   }
   function failure(error) {
     return { type: authConstants.LOGIN_FAILURE, error };
@@ -40,8 +39,4 @@ function login(requestBody) {
 function logout() {
   authService.logout();
   return { type: authConstants.LOGOUT };
-}
-
-function reset() {
-  return { type: authConstants.LOGIN_RESET };
 }
