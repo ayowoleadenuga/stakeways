@@ -16,17 +16,17 @@ class ManageHistory extends Component {
       fetching: false,
       submitting: false,
       id: 10004,
-      betHistoryData:null
+      betHistoryData: null,
+      transactionHistoryData: null,
     };
   }
   componentDidMount() {
-   // this.getUserLoginDetails(userDetails);//still undergoing testing..
+    // this.getUserLoginDetails(userDetails);//still undergoing testing..
     this.getBetHistory(this.state.id);
   }
-componentWillReceiveProps(nextProps){
-  //when transaction button is click..
-
-}
+  componentWillReceiveProps(nextProps) {
+    //when transaction button is click..
+  }
   getUserLoginDetails = data => {
     this.setState({
       fetching: true,
@@ -37,47 +37,54 @@ componentWillReceiveProps(nextProps){
         this.setState({
           response,
           fetching: false,
-          
         });
       })
 
       .catch(error => this.setState({ formError: error, fetching: false }));
   };
 
-  getBetHistory = params => {
-    
+  getBetHistory = id => {
     this.setState({ fetching: true });
     historyService
-      .getAllBetsHistory(params)
+      .getAllBetsHistory(id)
       .then(response => {
-       console.log("hey",response) ;
-          this.setState({
-            error: null,
-            fetching: false,
-            betHistoryData:response.result
-          });
-      }).then(response=>{
-        console.log("informer>>>",this.state.betHistoryData)
-      }
-       
-      )
+        this.setState({
+          error: null,
+          fetching: false,
+          betHistoryData: response.result,
+        });
+      })
       .catch(error => this.setState({ error, fetching: false }));
   };
 
+  getTransactionHistory = id => {
+    this.setState({ fetching: true });
+    historyService
+      .getAllTransactionHistory(id)
+      .then(response => {
+        this.setState({
+          error: null,
+          fetching: false,
+          transactionHistoryData: response.result,
+        });
+      })
+      .catch(error => this.setState({ error, fetching: false }));
+  };
   betHistoryClick = () => {
     this.setState({ isBetClick: true, isTransactionClick: false });
   };
 
   transactionHistoryClick = () => {
     this.setState({ isBetClick: false, isTransactionClick: true });
+    this.getTransactionHistory(this.state.id);
   };
 
   refreshData = () => {
     if (this.state.isBetClick) {
-      this.setState({ fetching: true });
+      this.getBetHistory(this.state.id);
     }
     if (this.state.isTransactionClick) {
-      this.setState({ fetching: true });
+      this.getTransactionHistory(this.state.id);
     }
   };
   render() {
@@ -86,8 +93,9 @@ componentWillReceiveProps(nextProps){
       isTransactionClick,
       error,
       fetching,
-      submitting,
-      betHistoryData
+
+      betHistoryData,
+      transactionHistoryData,
     } = this.state;
 
     return (
@@ -123,6 +131,7 @@ componentWillReceiveProps(nextProps){
               error={error}
               fetching={fetching}
               refreshData={this.refreshData}
+              transactionHistoryData={transactionHistoryData}
             />
           ) : null}
         </div>

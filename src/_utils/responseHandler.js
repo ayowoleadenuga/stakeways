@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const createUrlParams = params => {
-  console.log("id>>>",params);
+
   const esc = encodeURIComponent;
   const query = Object.keys(params)
     .map(k => esc(k) + "=" + esc(params[k]))
@@ -53,9 +53,7 @@ export const handleResponse = response => {
 export const apiCall = (requestType, url, requestBody, requestParams) => {
   let headers = { ...basicHeader };
   
-  // if (xsrfToken && xsrfTokenHeader) {
-  //   headers[xsrfTokenHeader] = xsrfToken;
-  // }
+ 
   const requestOptions = {
     method: requestType,
     headers,

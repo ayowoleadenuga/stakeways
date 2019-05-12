@@ -4,9 +4,7 @@ import { FormGroup, FormFeedback, Label, Input, FormText } from "reactstrap";
 import { Spinner } from "reactstrap";
 
 export class TextInputComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  
   changeValue = event => {
     
     if (
@@ -42,7 +40,7 @@ export class TextInputComponent extends React.Component {
       infoText,
       hasValue,
       isRequired,
-      isSelectDropDown,
+
     } = this.props;
     const hasError =
       !isPristine() && (showError() || (isRequired() && !hasValue()));

@@ -71,7 +71,6 @@ const mockData = [
   },
 ];
 
-
 export class TransactionHistoryTable extends Component {
   state = {
     status: "all",
@@ -89,7 +88,7 @@ export class TransactionHistoryTable extends Component {
     const columns = [
       {
         Header: "Reference #",
-        accessor: "reference",
+        accessor: "referenceNo",
         maxWidth: 400,
         Filter: ({ filter, onChange }) => (
           <input
@@ -114,28 +113,27 @@ export class TransactionHistoryTable extends Component {
       },
       {
         Header: "Payment Side",
-        accessor: "paymentside",
-
-        Filter: ({ filter, onChange }) => (
-          <input
-            onChange={event => onChange(event.target.value)}
-            value={filter ? filter.value : ""}
-            placeholder="&#x1F50D;"
-            style={{
-              width: "100%",
-            }}
-          />
+        accessor: "paymentSide",
+        Cell: row => (
+          <span>
+            {row.value === 1 || row.value === 0 ? (
+              <p>CR</p>
+            ) : row.value === 2 ? (
+              <p>DR</p>
+            ) : null}
+          </span>
         ),
+
         style: {
           textAlign: "center",
         },
       },
-      
+
       {
         Header: "Transaction Date",
-        id: "date",
+        id: "transactionDate",
         accessor: d => {
-          return Moment(d.submittedOn)
+          return Moment(d.transactionDate)
             .local()
             .format("DD-MM-YYYY ");
         },
@@ -154,7 +152,6 @@ export class TransactionHistoryTable extends Component {
           textAlign: "center",
         },
       },
-      
     ];
 
     const {
@@ -162,14 +159,8 @@ export class TransactionHistoryTable extends Component {
       fetching,
       data,
       error,
-      selectRow,
-      pages,
-      page,
-      pageSize,
-      setPageNumber,
-      filterData,
-      setPageSize,
-      refreshData
+      refreshData,
+      transactionHistoryData,
     } = this.props;
 
     return (
@@ -190,24 +181,11 @@ export class TransactionHistoryTable extends Component {
               loading={fetching}
               disabled={fetching}
               urlParams={match}
-              //  data={data ? data.content : []}
-              data={mockData}
+              data={transactionHistoryData ? transactionHistoryData : []}
               count={data ? data.count : 0}
               defaultPageSize={5}
               refreshData={refreshData}
               shiftRefeshButton={true}
-
-              // selectRow={selectRow}
-              // manual={true}
-              // pages={pages}
-              // page={page}
-              // pageSize={pageSize}
-              // filterData={filterData}
-              // setPageNumber={setPageNumber}
-              // setPageSize={setPageSize}
-              // searchParam="searchKey"
-              // searchPlaceholder="Search by title/instructor"
-              // actions={actions}
             />
           </CardBody>
         </Card>

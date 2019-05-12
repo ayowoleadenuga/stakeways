@@ -38,10 +38,7 @@ class DataTable extends Component {
       <div style={{ color: "white" }}>
         <Row>
           <Col sm="8">
-            {/* <h4 className="data-count">
-              {" "}
-              {count} {countTitle || "Result(s)"} found
-            </h4> */}
+           
           </Col>
           <Col sm="4">
             {!hideSearchParam && (
@@ -67,14 +64,9 @@ class DataTable extends Component {
           pageSize={pageSize}
           manual={manual}
           defaultPageSize={defaultPageSize}
-          // columns={hideActions ? columnsWithoutAction : columnsWithActions}
+    
           columns={columnsWithoutAction}
-          // onPageChange={pageIndex => {
-          //   setPageNumber(pageIndex);
-          // }}
-          // onPageSizeChange={(pageSize, pageIndex) => {
-          //   setPageSize(pageSize, pageIndex);
-          // }}
+          noDataText={"No data"}
         />
       </div>
     );

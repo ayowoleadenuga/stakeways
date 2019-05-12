@@ -14,7 +14,7 @@ export const authEndpoint = `${baseUrl}/TokenAuth/Authenticate`
 export const apiUrls = {
 history:{
 betHistory:`${endPointUrl}/${apiName}/services/app/Bet/GetByUser`,
-transactionhistory:`${baseUrl}/`,
+transactionhistory:`${endPointUrl}/${apiName}/services/app/Payment/GetByUser`,
 login:`${baseUrl}/api/TokenAuth/Authenticate
 `
 },

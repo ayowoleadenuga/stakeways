@@ -131,8 +131,7 @@ const Rejected = () => {
   );
 };
 
-
-const Processing= () => {
+const Processing = () => {
   return (
     <span style={{ color: "yellow" }}>
       <GoClock /> Processing
@@ -140,12 +139,8 @@ const Processing= () => {
   );
 };
 
-const Unconfirmed= () => {
-  return (
-    <span style={{ color: "grey" }}>
-      Unconfirmed
-    </span>
-  );
+const Unconfirmed = () => {
+  return <span style={{ color: "grey" }}>Unconfirmed</span>;
 };
 
 const map = (array, fn) => {
@@ -153,7 +148,7 @@ const map = (array, fn) => {
   for (const value of array) {
     results.push(fn(value));
   }
-  
+
   return results;
 };
 export class HistoryTable extends Component {
@@ -161,23 +156,15 @@ export class HistoryTable extends Component {
     status: "all",
   };
 
-  
-
   refineData = data => {
-    
-   const newData= map(data, content => {
-    
+    const newData = map(data, content => {
       return { userId: content.userId };
     });
-    return newData
+    return newData;
   };
 
   changeValue = event => {
     this.setState({ status: event.target.value });
-
-    // this.props.filterData({
-    //   status: event.target.value !== "all" ? event.target.value : "",
-    // });
   };
 
   render() {
@@ -245,9 +232,9 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Date Created",
-        id: "games.organization.creationDate",
+        id: "creationTime",
         accessor: d => {
-          return Moment(d.submittedOn)
+          return Moment(d.creationTime)
             .local()
             .format("DD-MM-YYYY ");
         },
@@ -281,23 +268,35 @@ export class HistoryTable extends Component {
               <Unconfirmed />
             ) : row.value === 1 ? (
               <Pending />
-            ) :row.value===2 ?(
-                 <Processing/>      
-            ):row.value===3?(
+            ) : row.value === 2 ? (
+              <Processing />
+            ) : row.value === 3 ? (
               <Confirmed />
-            ):row.value===4 ?(
+            ) : row.value === 4 ? (
               <Declined />
-            ):row.value===5 ?(
+            ) : row.value === 5 ? (
               <Rejected />
-            ):null}
+            ) : null}
           </span>
         ),
         filterMethod: (filter, row) => {
-          if (filter.value === "CONFIRMED") {
-            return row[filter.id] == "CONFIRMED";
+          if (filter.value === "UNCONFIRMED") {
+            return row[filter.id] == 0;
           }
           if (filter.value === "PENDING") {
-            return row[filter.id] == "PENDING";
+            return row[filter.id] == 1;
+          }
+          if (filter.value === "PROCESSING") {
+            return row[filter.id] == 2;
+          }
+          if (filter.value === "COMPLETED") {
+            return row[filter.id] == 3;
+          }
+          if (filter.value === "DECLINED") {
+            return row[filter.id] == 4;
+          }
+          if (filter.value === "REJECTED") {
+            return row[filter.id] == 5;
           }
           return row[filter.id];
         },
@@ -305,13 +304,15 @@ export class HistoryTable extends Component {
           <select
             onChange={event => onChange(event.target.value)}
             style={{ width: "60%" }}
-            // value={this.state.status}
             value={filter ? filter.value : null}
           >
             <option value="all">Show All</option>
-            <option value="CONFIRMED">Confirmed</option>
-
+            <option value="UNCONFIRMED">Unconfirmed</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DECLINED">Declined</option>
             <option value="PENDING">Pending</option>
+            <option value="PROCESSING">Processing</option>
+            <option value="REJECTED">Rejected</option>
           </select>
         ),
         style: {
@@ -325,17 +326,13 @@ export class HistoryTable extends Component {
       fetching,
       data,
       error,
-      selectRow,
-      pages,
-      page,
-      pageSize,
-      setPageNumber,
-      filterData,
-      setPageSize,
+
       refreshData,
-      betHistoryData
+      betHistoryData,
     } = this.props;
-{console.log("whats is the data",betHistoryData)}
+    {
+      console.log("clap it", betHistoryData);
+    }
     return (
       <div>
         <Card style={formatTable}>
@@ -354,22 +351,10 @@ export class HistoryTable extends Component {
               loading={fetching}
               disabled={fetching}
               urlParams={match}
-                data={betHistoryData ? betHistoryData : []}
-             // data={mockData}
+              data={betHistoryData ? betHistoryData : []}
               count={data ? data.count : 0}
               defaultPageSize={5}
               refreshData={refreshData}
-              // selectRow={selectRow}
-              // manual={true}
-              // pages={pages}
-              // page={page}
-              // pageSize={pageSize}
-              // filterData={filterData}
-              // setPageNumber={setPageNumber}
-              // setPageSize={setPageSize}
-              // searchParam="searchKey"
-              // searchPlaceholder="Search by title/instructor"
-              // actions={actions}
             />
           </CardBody>
         </Card>
