@@ -1,105 +1,20 @@
 import React, { Component } from "react";
 import { Card, CardHeader, CardBody, UncontrolledAlert } from "reactstrap";
 import DataTable from "../../../shared/DataTable";
-import { MdDone, MdClear, MdRefresh } from "react-icons/md";
+import { MdDone, MdClear } from "react-icons/md";
 
 import Moment from "moment";
 import { GoClock } from "react-icons/go";
 import "./edet.css";
 
-const testingData = [
-  {
-    userId: "string",
-    playerId: "string",
-    stack: "string",
-    lines: "string",
-    numbers: "string",
-    creationTime: "2019-05-02T13:44:01.825Z",
-    betstate: 0,
-    gameId: 0,
-    games: {
-      name: "string",
-      startDate: "2019-05-02T13:44:01.825Z",
-      endDate: "2019-05-02T13:44:01.825Z",
-      datePlayed: "string",
-      price: 0,
-      gameTypeId: 0,
-      organizationId: 0,
-      organization: {
-        name: "string",
-        creationDate: "2019-05-02T13:44:01.825Z",
-        createdBy: 0,
-        id: 0,
-      },
-      id: 0,
-    },
-    id: 0,
-  },
-];
+
 
 //inline styling object:
 const formatTable = {
   backgroundColor: "#313340",
 };
 
-const mockData = [
-  {
-    organisation: "BETNAIJA",
-    game: "NPM1",
-    no: "2",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BETNAIJA",
-    game: "NPM1",
-    no: "2",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-];
+
 const Confirmed = () => {
   return (
     <span style={{ color: "green" }}>
@@ -330,9 +245,7 @@ export class HistoryTable extends Component {
       refreshData,
       betHistoryData,
     } = this.props;
-    {
-      console.log("clap it", betHistoryData);
-    }
+    
     return (
       <div>
         <Card style={formatTable}>
