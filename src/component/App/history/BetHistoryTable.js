@@ -22,13 +22,13 @@ const Confirmed = () => {
     </span>
   );
 };
-const Declined = () => {
+/* const Declined = () => {
   return (
     <span style={{ color: "#FF6347" }}>
       <MdClear /> Declined
     </span>
   );
-};
+}; */
 
 const Pending = () => {
   return (

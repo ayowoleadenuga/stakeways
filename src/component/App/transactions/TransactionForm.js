@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import {
   Row,
   Col,
-  UncontrolledAlert,
+  // UncontrolledAlert,
   Card,
   Button,
-  CardHeader,
-  CardImg,
+  // CardHeader,
+  // CardImg,
   CardBody,
 } from "reactstrap";
 import { MdPayment } from "react-icons/md";

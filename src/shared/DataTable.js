@@ -10,7 +10,7 @@ class DataTable extends Component {
   render() {
     const {
       data,
-     // count,
+      // count,
       manual,
       pages,
       page,
@@ -26,7 +26,6 @@ class DataTable extends Component {
       // actions,
       // searchPlaceholder,
       hideSearchParam,
-    //  countTitle,
       refreshData,
       disabled,
       shiftRefeshButton,

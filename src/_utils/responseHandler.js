@@ -1,21 +1,5 @@
 //import { message } from "../_constants";
 
-let xsrfToken;
-let xsrfTokenHeader;
-
-if (process.env.NODE_ENV === "development") {
-  xsrfTokenHeader = "X-XSRF-TOKEN";
-  xsrfToken = "75186e5b-4f46-45c7-ac7c-eb0a65b19309";
-
-} else {
-  xsrfToken = document.getElementById("csrf-token")
-    ? document.getElementById("csrf-token").getAttribute("content")
-    : "";
-  xsrfTokenHeader = document.getElementById("csrf-token")
-    ? document.getElementById("csrf-header").getAttribute("content")
-    : "";
-}
-
 const createUrlParams = params => {
 
   const esc = encodeURIComponent;
@@ -40,7 +24,7 @@ export const handleResponse = response => {
 
   return response.json().then(json => {
     const error = new Error(
-      json.message ||
+      json.error.message ||
         json.Message ||
         json.responseMessage ||
         json.error 
@@ -52,8 +36,6 @@ export const handleResponse = response => {
 
 export const apiCall = (requestType, url, requestBody, requestParams) => {
   let headers = { ...basicHeader };
-  
- 
   const requestOptions = {
     method: requestType,
     headers,

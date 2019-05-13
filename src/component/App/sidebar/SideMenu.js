@@ -24,7 +24,7 @@ class SideMenuComponent extends Component {
           >
             {route.menu && (
               <NavItem className='nav-item'>
-                <NavLink to={`${match.url}${route.path}`} tag={RRNavLink}>
+                <NavLink to={`${match.path}${route.path}`} tag={RRNavLink}>
                   {route.icon({ size: 20 })}
                   {route.title}
                 </NavLink>

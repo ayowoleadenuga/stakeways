@@ -1,49 +1,81 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { styleConstants } from "../../../_constants";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import Formsy from "formsy-react";
+import { TextInput } from "../../../shared/Forms/TextInput";
+import { Spinner } from "../../../shared";
 
 export default class ResetPassword extends Component {
+  state = {
+    canSubmit: false
+  };
+
+  disableButton = () => {
+    this.setState({ canSubmit: false });
+  };
+
+  enableButton = () => {
+    this.setState({ canSubmit: true });
+  };
+
+  handleSubmit = data => {
+    console.log(data);
+  };
   render() {
+    const { canSubmit } = this.state;
+    const { submitting } = this.props;
     return (
       <div>
         <h4 className="h4 mb-3 font-weight-bold">Reset Password</h4>
-        <label for="inputEmail" className="sr-only">
-          New Password
-        </label>
-        <input
-          type="password"
-          id="inputEmail"
-          className={`${css(
-            styles.formControl,
-            styles.inputEmail
-          )} form-control`}
-          placeholder="New password"
-          required
-          autofocus
-        />
-        <label for="inputPassword" className="sr-only">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          id="inputPassword"
-          className={`${css(
-            styles.formControl,
-            styles.inputPassword
-          )} form-control`}
-          placeholder="Confirm Password"
-          required
-        />
-        <button
-          className={`${css(
-            styles.button
-          )} btn mt-4 btn-lg btn-primary btn-block`}
-          type="submit"
+        <Formsy
+          ref="resetPasswordForm"
+          onValidSubmit={this.handleSubmit}
+          onValid={this.enableButton}
+          onInvalid={this.disableButton}
+          noValidate
         >
-          Confirm
-        </button>
+          <div className="grouped-form">
+            <TextInput
+              name="password"
+              title="Password"
+              validating={submitting}
+              type="password"
+              validations={{
+                minLength: 4
+              }}
+              validationErrors={{
+                minLength: "You have to type at least 4 characters"
+              }}
+              required
+            />
+            <TextInput
+              name="confirmPassword"
+              title="Confirm Password"
+              validating={submitting}
+              type="password"
+              validations={{
+                equalsField: "password"
+              }}
+              validationErrors={{
+                equalsField: "Passwords have to match"
+              }}
+              required
+            />
+          </div>
+          <Button
+            type="submit"
+            className={`${css(
+              styles.button
+            )} btn mt-4 btn-lg btn-primary btn-block`}
+            color="primary"
+            disabled={!canSubmit || submitting}
+          >
+            {submitting ? <Spinner /> : "Submit"}
+          </Button>
+        </Formsy>
+
         <Row className="my-3">
           <Col>
             <p className="text-center">

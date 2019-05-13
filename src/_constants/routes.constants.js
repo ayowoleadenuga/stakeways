@@ -14,8 +14,8 @@ import ManageHistory from "../component/App/history/ManageHistory";
 export const routeConstants = {
   HOME: {
     key: "home",
-    title: "Home",
     exact: true,
+    title: "Home",
     name: "Home",
     path: "/home",
     icon: MdHome,
@@ -30,7 +30,6 @@ export const routeConstants = {
     key: "all_games",
     title: "All Games",
     name: "All Games",
-    exact: true,
     path: "/all-games",
     icon: MdGames,
     menu: true,
@@ -43,7 +42,6 @@ export const routeConstants = {
   HISTORY: {
     key: "history",
     title: "History",
-    exact: true,
     name: "History",
     path: "/history",
     icon: MdHistory,
@@ -57,7 +55,6 @@ export const routeConstants = {
   ACCOUNT: {
     key: "account_settings",
     title: "Account Settings",
-    exact: true,
     name: "Account Settings",
     path: "/account-settings",
     icon: MdPerson,
@@ -70,7 +67,6 @@ export const routeConstants = {
   },
   TRANSACTIONS: {
     key: "transaction",
-    exact: true,
     title: "Transactions",
     name: "Transactions",
     path: "/transactions",
@@ -80,6 +76,19 @@ export const routeConstants = {
       darken: false
     },
     pageComponent: ManageTransactions,
+    enabled: true
+  },
+  ALL: {
+    key: "all",
+    title: "all",
+    name: "all",
+    path: "*",
+    icon: MdHome,
+    menu: false,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: Home,
     enabled: true
   }
 };

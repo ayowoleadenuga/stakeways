@@ -1,15 +1,18 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import SideMenu from "./index";
+import { Spinner } from "./Spinner";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    isFullWidth: false
+    float: "float-left",
+    size: 20,
+    message: "test",
+    className: ""
   };
-  const enzymeWrapper = shallow(<SideMenu {...props} />);
+  const enzymeWrapper = shallow(<Spinner {...props} />);
   return {
     props,
     enzymeWrapper
@@ -17,7 +20,7 @@ function setup() {
 }
 
 describe("components", () => {
-  describe("Side Menu", () => {
+  describe("Placeholder text", () => {
     it("should render", () => {
       const { enzymeWrapper } = setup();
       expect(enzymeWrapper).toMatchSnapshot();
