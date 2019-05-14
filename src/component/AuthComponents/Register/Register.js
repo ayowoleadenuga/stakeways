@@ -51,7 +51,7 @@ class Register extends Component {
     const { submitting, type, message } = this.props;
     return (
       <div>
-        <h4 className="h4 mb-3 font-weight-bold">Please sign in</h4>
+        <h4 className="h4 mb-3 font-weight-bold">Please fill the form to register</h4>
         {message && <Alert color={type}>{message}</Alert>}
         <Formsy
           ref="registerForm"

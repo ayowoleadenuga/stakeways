@@ -1,18 +1,22 @@
 import React from "react";
-import {
+import {Nav,
   Navbar,
   NavbarBrand,
+  NavItem
 } from "reactstrap";
 import { MdMenu } from "react-icons/md";
 import PropTypes from "prop-types";
+import { MdPowerSettingsNew } from "react-icons/md";
+// import { authService } from "../component/AuthComponents/Login/services/auth.service";
+// import { authActions } from "../component/AuthComponents/Login/actions/auth.actions";
 
 class CustomNavBar extends React.Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      name: ""
     };
   }
   toggle() {
@@ -20,6 +24,13 @@ class CustomNavBar extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  logoutHandler = () => {
+    const id = localStorage.getItem("auth");
+    console.log(id)
+    // authActions.logout()
+    // document.location.reload()
+  }
+  
   render() {
     const { toggleFullWidth } = this.props;
     return (
@@ -28,6 +39,14 @@ class CustomNavBar extends React.Component {
           <NavbarBrand className="pointer" onClick={toggleFullWidth}>
             <MdMenu size={30} />
           </NavbarBrand>
+          <Nav className="ml-auto" navbar>
+              <NavItem>
+                {this.state.name}
+              </NavItem>
+              <NavItem onClick={this.logoutHandler} className="pointer">
+                <h4>Logout <MdPowerSettingsNew /></h4>
+              </NavItem>
+          </Nav>
         </Navbar>
       </div>
     );

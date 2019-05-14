@@ -12,64 +12,64 @@ const formatTable = {
   backgroundColor: "#313340",
 };
 
-const mockData = [
-  {
-    reference: "367890",
-    game: "NPM1",
-    paymentside: "DR",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    reference: "6444900",
-    game: "LLLA",
-    paymentside: "CR",
-    amount: "5000",
-    status: "PENDING",
-  },
-  {
-    reference: "736790",
-    game: "NPM45",
-    paymentside: "DR",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    reference: "124O890000",
-    game: "NPM1",
-    paymentside: "DR",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    reference: "32232421",
-    game: "LLLA",
-    paymentside: "DR",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    reference: "89090873",
-    game: "NPM45",
-    paymentside: "CR",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    reference: "474894232",
-    game: "LLLA",
-    paymentside: "DR",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    reference: "12389003990",
-    game: "NPM45",
-    paymentside: "CR",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-];
+// const mockData = [
+//   {
+//     reference: "367890",
+//     game: "NPM1",
+//     paymentside: "DR",
+//     amount: "200",
+//     status: "CONFIRMED",
+//   },
+//   {
+//     reference: "6444900",
+//     game: "LLLA",
+//     paymentside: "CR",
+//     amount: "5000",
+//     status: "PENDING",
+//   },
+//   {
+//     reference: "736790",
+//     game: "NPM45",
+//     paymentside: "DR",
+//     amount: "400",
+//     status: "CONFIRMED",
+//   },
+//   {
+//     reference: "124O890000",
+//     game: "NPM1",
+//     paymentside: "DR",
+//     amount: "200",
+//     status: "CONFIRMED",
+//   },
+//   {
+//     reference: "32232421",
+//     game: "LLLA",
+//     paymentside: "DR",
+//     amount: "2000",
+//     status: "PENDING",
+//   },
+//   {
+//     reference: "89090873",
+//     game: "NPM45",
+//     paymentside: "CR",
+//     amount: "400",
+//     status: "CONFIRMED",
+//   },
+//   {
+//     reference: "474894232",
+//     game: "LLLA",
+//     paymentside: "DR",
+//     amount: "2000",
+//     status: "PENDING",
+//   },
+//   {
+//     reference: "12389003990",
+//     game: "NPM45",
+//     paymentside: "CR",
+//     amount: "400",
+//     status: "CONFIRMED",
+//   },
+// ];
 
 export class TransactionHistoryTable extends Component {
   state = {

@@ -4,12 +4,12 @@ import {
   Col,
   // UncontrolledAlert,
   Card,
-  Button,
+  // Button,
   // CardHeader,
   // CardImg,
   CardBody,
 } from "reactstrap";
-import { MdPayment } from "react-icons/md";
+// import { MdPayment } from "react-icons/md";
 import Formsy from "formsy-react";
 import { TextInput } from "../../../shared/Forms/TextInput";
 import PaystackButton from "react-paystack";
@@ -21,12 +21,12 @@ const formatTable = {
 
 //customised button
 
-const payStackButton = (
-  <span style={{ color: "white" }}>
-    {" "}
-    <MdPayment /> Pay Stack
-  </span>
-);
+// const payStackButton = (
+//   <span style={{ color: "white" }}>
+//     {" "}
+//     <MdPayment /> Pay Stack
+//   </span>
+// );
 
 class TransactionForm extends Component {
   constructor(props) {
@@ -138,7 +138,7 @@ class TransactionForm extends Component {
   //   handler.openIframe();
   // }
   render() {
-    const { canSubmit, costomerAmount, costomerEmail, key } = this.state;
+    const { costomerAmount, costomerEmail, key } = this.state;
     const { submitting } = this.props;
     return (
       <div>

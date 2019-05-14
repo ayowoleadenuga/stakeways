@@ -52,6 +52,7 @@ const getCustomerId = () => {
   const token = getToken();
   const userDetails = getUserDetails(token);
   if (userDetails) {
+    console.log(userDetails.user_name)
     return userDetails.user_name;
   }
 

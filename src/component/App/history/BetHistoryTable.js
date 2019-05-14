@@ -22,13 +22,13 @@ const Confirmed = () => {
     </span>
   );
 };
-/* const Declined = () => {
+const Declined = () => {
   return (
     <span style={{ color: "#FF6347" }}>
       <MdClear /> Declined
     </span>
   );
-}; */
+}; 
 
 const Pending = () => {
   return (
@@ -196,22 +196,22 @@ export class HistoryTable extends Component {
         ),
         filterMethod: (filter, row) => {
           if (filter.value === "UNCONFIRMED") {
-            return row[filter.id] == 0;
+            return row[filter.id] === 0;
           }
           if (filter.value === "PENDING") {
-            return row[filter.id] == 1;
+            return row[filter.id] === 1;
           }
           if (filter.value === "PROCESSING") {
-            return row[filter.id] == 2;
+            return row[filter.id] === 2;
           }
           if (filter.value === "COMPLETED") {
-            return row[filter.id] == 3;
+            return row[filter.id] === 3;
           }
           if (filter.value === "DECLINED") {
-            return row[filter.id] == 4;
+            return row[filter.id] === 4;
           }
           if (filter.value === "REJECTED") {
-            return row[filter.id] == 5;
+            return row[filter.id] === 5;
           }
           return row[filter.id];
         },
