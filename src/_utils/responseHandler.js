@@ -1,4 +1,5 @@
 const createUrlParams = params => {
+
   const esc = encodeURIComponent;
   const query = Object.keys(params)
     .map(k => esc(k) + "=" + esc(params[k]))
@@ -8,7 +9,8 @@ const createUrlParams = params => {
 };
 
 export const basicHeader = {
-  "Content-Type": "application/json"
+  "Content-Type": "application/json",
+  "Accept": "application/json"
 };
 
 export const handleResponse = response => {
@@ -25,15 +27,16 @@ export const handleResponse = response => {
 
 export const apiCall = (requestType, url, requestBody, requestParams) => {
   let headers = { ...basicHeader };
-
   const requestOptions = {
     method: requestType,
     headers,
     body: requestBody ? JSON.stringify(requestBody) : undefined
   };
   if (requestParams) {
+   
     const urlParams = createUrlParams(requestParams);
     url = `${url}?${urlParams}`;
+   
   }
   return fetch(url, requestOptions).then(handleResponse);
 };

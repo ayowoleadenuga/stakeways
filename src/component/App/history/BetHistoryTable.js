@@ -1,85 +1,30 @@
 import React, { Component } from "react";
 import { Card, CardHeader, CardBody, UncontrolledAlert } from "reactstrap";
 import DataTable from "../../../shared/DataTable";
-import { MdDone,/* MdClear,  MdRefresh */ } from "react-icons/md";
+import { MdDone, MdClear } from "react-icons/md";
 
 import Moment from "moment";
 import { GoClock } from "react-icons/go";
 import "./edet.css";
+
+
 
 //inline styling object:
 const formatTable = {
   backgroundColor: "#313340",
 };
 
-const mockData = [
-  {
-    organisation: "BETNAIJA",
-    game: "NPM1",
-    no: "2",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BETNAIJA",
-    game: "NPM1",
-    no: "2",
-    amount: "200",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-  {
-    organisation: "BABAIJEBU",
-    game: "LLLA",
-    no: "3",
-    amount: "2000",
-    status: "PENDING",
-  },
-  {
-    organisation: "WINNERBET",
-    game: "NPM45",
-    no: "2",
-    amount: "400",
-    status: "CONFIRMED",
-  },
-];
+
 const Confirmed = () => {
   return (
     <span style={{ color: "green" }}>
-      <MdDone /> Confirmed
+      <MdDone /> Completed
     </span>
   );
 };
 /* const Declined = () => {
   return (
-    <span style={{ color: "red" }}>
+    <span style={{ color: "#FF6347" }}>
       <MdClear /> Declined
     </span>
   );
@@ -87,30 +32,61 @@ const Confirmed = () => {
 
 const Pending = () => {
   return (
-    <span style={{ color: "red" }}>
+    <span style={{ color: "grey" }}>
       <GoClock /> Pending
     </span>
   );
 };
 
+const Rejected = () => {
+  return (
+    <span style={{ color: "red" }}>
+      <MdClear /> Rejected
+    </span>
+  );
+};
+
+const Processing = () => {
+  return (
+    <span style={{ color: "yellow" }}>
+      <GoClock /> Processing
+    </span>
+  );
+};
+
+const Unconfirmed = () => {
+  return <span style={{ color: "grey" }}>Unconfirmed</span>;
+};
+
+const map = (array, fn) => {
+  let results = [];
+  for (const value of array) {
+    results.push(fn(value));
+  }
+
+  return results;
+};
 export class HistoryTable extends Component {
   state = {
     status: "all",
   };
 
+  refineData = data => {
+    const newData = map(data, content => {
+      return { userId: content.userId };
+    });
+    return newData;
+  };
+
   changeValue = event => {
     this.setState({ status: event.target.value });
-
-    // this.props.filterData({
-    //   status: event.target.value !== "all" ? event.target.value : "",
-    // });
   };
 
   render() {
     const columns = [
       {
         Header: "Organisation",
-        accessor: "organisation",
+        accessor: "games.organization.name",
         maxWidth: 400,
         Filter: ({ filter, onChange }) => (
           <input
@@ -128,14 +104,14 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Game",
-        accessor: "game",
+        accessor: "games.name",
         style: {
           textAlign: "center",
         },
       },
       {
         Header: "Numbers",
-        accessor: "no",
+        accessor: "numbers",
 
         Filter: ({ filter, onChange }) => (
           <input
@@ -153,7 +129,7 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Amount",
-        accessor: "amount",
+        accessor: "games.price",
 
         Filter: ({ filter, onChange }) => (
           <input
@@ -171,9 +147,9 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Date Created",
-        id: "date",
+        id: "creationTime",
         accessor: d => {
-          return Moment(d.submittedOn)
+          return Moment(d.creationTime)
             .local()
             .format("DD-MM-YYYY ");
         },
@@ -194,30 +170,48 @@ export class HistoryTable extends Component {
       },
       {
         Header: "Status",
-        accessor: "status",
+        accessor: "betstate",
 
         maxWidth: 200,
-        id: "status",
+        id: "be",
         sortable: true,
         filterable: true,
 
         Cell: row => (
           <span>
-            {row.value === "CONFIRMED" ? (
+            {row.value === 0 ? (
+              <Unconfirmed />
+            ) : row.value === 1 ? (
+              <Pending />
+            ) : row.value === 2 ? (
+              <Processing />
+            ) : row.value === 3 ? (
               <Confirmed />
-            ) : row.value === "PENDING" ? (
-              <Pending />
-            ) : (
-              <Pending />
-            )}
+            ) : row.value === 4 ? (
+              <Declined />
+            ) : row.value === 5 ? (
+              <Rejected />
+            ) : null}
           </span>
         ),
         filterMethod: (filter, row) => {
-          if (filter.value === "CONFIRMED") {
-            return row[filter.id] === "CONFIRMED";
+          if (filter.value === "UNCONFIRMED") {
+            return row[filter.id] == 0;
           }
           if (filter.value === "PENDING") {
-            return row[filter.id] === "PENDING";
+            return row[filter.id] == 1;
+          }
+          if (filter.value === "PROCESSING") {
+            return row[filter.id] == 2;
+          }
+          if (filter.value === "COMPLETED") {
+            return row[filter.id] == 3;
+          }
+          if (filter.value === "DECLINED") {
+            return row[filter.id] == 4;
+          }
+          if (filter.value === "REJECTED") {
+            return row[filter.id] == 5;
           }
           return row[filter.id];
         },
@@ -225,13 +219,15 @@ export class HistoryTable extends Component {
           <select
             onChange={event => onChange(event.target.value)}
             style={{ width: "60%" }}
-            // value={this.state.status}
             value={filter ? filter.value : null}
           >
             <option value="all">Show All</option>
-            <option value="CONFIRMED">Confirmed</option>
-
+            <option value="UNCONFIRMED">Unconfirmed</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DECLINED">Declined</option>
             <option value="PENDING">Pending</option>
+            <option value="PROCESSING">Processing</option>
+            <option value="REJECTED">Rejected</option>
           </select>
         ),
         style: {
@@ -245,16 +241,11 @@ export class HistoryTable extends Component {
       fetching,
       data,
       error,
-      /* selectRow,
-      pages,
-      page,
-      pageSize,
-      setPageNumber,
-      filterData,
-      setPageSize, */
-      refreshData
-    } = this.props;
 
+      refreshData,
+      betHistoryData,
+    } = this.props;
+    
     return (
       <div>
         <Card style={formatTable}>
@@ -273,22 +264,10 @@ export class HistoryTable extends Component {
               loading={fetching}
               disabled={fetching}
               urlParams={match}
-              //  data={data ? data.content : []}
-              data={mockData}
+              data={betHistoryData ? betHistoryData : []}
               count={data ? data.count : 0}
               defaultPageSize={5}
               refreshData={refreshData}
-              // selectRow={selectRow}
-              // manual={true}
-              // pages={pages}
-              // page={page}
-              // pageSize={pageSize}
-              // filterData={filterData}
-              // setPageNumber={setPageNumber}
-              // setPageSize={setPageSize}
-              // searchParam="searchKey"
-              // searchPlaceholder="Search by title/instructor"
-              // actions={actions}
             />
           </CardBody>
         </Card>
