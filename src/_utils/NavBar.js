@@ -4,13 +4,15 @@ import {Nav,
   NavbarBrand,
   NavItem
 } from "reactstrap";
+import { connect } from "react-redux";
 import { MdMenu } from "react-icons/md";
 import PropTypes from "prop-types";
 import { MdPowerSettingsNew } from "react-icons/md";
-// import { authService } from "../component/AuthComponents/Login/services/auth.service";
-// import { authActions } from "../component/AuthComponents/Login/actions/auth.actions";
+import { bindActionCreators } from "redux";
+import { authActions } from "../component/AuthComponents/Login/actions/auth.actions";
+import { alertActions } from "../component/Alert/actions/alert.actions";
 
-class CustomNavBar extends React.Component {
+class CNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -25,10 +27,7 @@ class CustomNavBar extends React.Component {
     });
   }
   logoutHandler = () => {
-    const id = localStorage.getItem("auth");
-    console.log(id)
-    // authActions.logout()
-    // document.location.reload()
+    this.props.logout()
   }
   
   render() {
@@ -69,4 +68,14 @@ NavbarBrand.propTypes = {
   // pass in custom element to use
 };
 
-export { CustomNavBar as CNavBar };
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: bindActionCreators(authActions.logout, dispatch),
+    clearAlerts: bindActionCreators(alertActions.clear, dispatch)
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CNavBar);

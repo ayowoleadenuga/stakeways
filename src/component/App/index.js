@@ -3,7 +3,7 @@ import {  Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 import "../../App.scss";
 import SideMenu from "./sidebar";
-import { CNavBar } from "../../_utils/NavBar";
+import CNavBar from "../../_utils/NavBar";
 import { routes } from "../../_constants";
 
 class MainApp extends Component {
