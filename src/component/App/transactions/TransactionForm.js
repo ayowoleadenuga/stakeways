@@ -1,47 +1,46 @@
 import React, { Component } from "react";
-import {
-  Row,
-  Col,
-  // UncontrolledAlert,
-  Card,
-  // Button,
-  // CardHeader,
-  // CardImg,
-  CardBody,
-} from "reactstrap";
-// import { MdPayment } from "react-icons/md";
+import { payStackService } from "./services/PayStackServices";
+import { Row, Col, Card, CardBody } from "reactstrap";
+
 import Formsy from "formsy-react";
 import { TextInput } from "../../../shared/Forms/TextInput";
 import PaystackButton from "react-paystack";
+import Moment from "moment";
+import { toast } from "react-toastify";
 
-//inline styling object:
 const formatTable = {
   backgroundColor: "#313340",
 };
-
-//customised button
-
-// const payStackButton = (
-//   <span style={{ color: "white" }}>
-//     {" "}
-//     <MdPayment /> Pay Stack
-//   </span>
-// );
 
 class TransactionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       canSubmit: false,
-      costomerEmail: "mmkeut@yahoo.com",
+      costumerEmail: null,
       key: "pk_test_7d7177d018dffeec7e3b0d66cf376509124f8014",
-      costomerAmount: 44440,
+      costumerAmount: 100,
+      costumerBalance: null,
+      error: null,
+      paymentData: null,
     };
   }
 
   componentDidMount() {
-    //get the user details on call here.....or we use redux concepts here.
+    this.getUserDetails(this.props.userId);
   }
+  getUserDetails = id => {
+    payStackService
+      .getUserDetails(id)
+      .then(response => {
+        this.setState({
+          costumerEmail: response.result.emailAddress,
+          costumerBalance: response.result.balance,
+          paymentData: response.result,
+        });
+      })
+      .catch(error => this.setState({ error: error }));
+  };
 
   disableButton = () => {
     this.setState({ canSubmit: false });
@@ -51,40 +50,12 @@ class TransactionForm extends Component {
     this.setState({ canSubmit: true });
   };
 
-  //   createRequest = data => {
-  //     let request = { ...data };
-  //     if (request.interestCode) {
-  //       request = {
-  //         interestId: request.interestCode.id,
-  //         ...request
-  //       };
-  //       delete request.interestCode;
-  //     }
-  //     return request;
-  //   };
-
   handleChange = data => {
-    console.log(data);
- 
-    if(data && data.postsNum){
+    if (data && data.postsNum) {
       let newAmount = parseInt(data.postsNum);
-      this.setState({ costomerAmount: newAmount });
-     
-      // let requestBody = this.createRequest(data);
-      // this.props.submitAction(requestBody);
-      //will call paystack api here.
-      //!newAmount.NaN
-    }else{
-      console.log("hahahhha")
+      this.setState({ costumerAmount: newAmount });
     }
-    
   };
-
-  //   componentWillReceiveProps(nextProps) {
-  //     if (nextProps.submitSucessful) {
-  //       this.resetForm();
-  //     }
-  //   }
 
   resetForm = () => {
     this.refs.paystackref.reset();
@@ -96,16 +67,46 @@ class TransactionForm extends Component {
   };
 
   callback = response => {
-    console.log(response); // card charged successfully, get reference here
+    this.paymentDone(this.props.userId);
+  };
+
+  paymentDone = async id => {
+    this.setState({
+      paymentData: {
+        ...this.state.paymentData,
+        creationTime: Moment()
+          .local()
+          .toISOString(),
+        balance: this.state.costumerBalance + this.state.costumerAmount,
+      },
+    });
+    try {
+      if (this.state.paymentData.balance) {
+        payStackService
+          .createTransaction(this.state.paymentData, id)
+          .then(response => {
+            toast.success(`Your Payment is successfully`, {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 4000,
+            });
+          })
+          .catch(error => this.setState({ error: error }));
+      }
+    } catch (error) {
+      this.setState({
+        error: error,
+      });
+    }
   };
 
   close = () => {
-    console.log("Payment closed");
+    toast.warn(`Your Payment is closed`, {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 4000,
+    });
   };
 
   getReference = () => {
-    console.log("help me", this.state.costomerAmount);
-    //you can put any unique reference implementation code here
     let text = "";
     let possible =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.=";
@@ -116,30 +117,10 @@ class TransactionForm extends Component {
     return text;
   };
 
-  // payWithPaystack=()=>{
-  //  let handler = PaystackPop.setup({
-  //     key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
-  //     email: 'customer@email.com',
-  //     amount: 10000,
-  //     currency: "NGN",
-  //    // ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-  //     metadata: {
-  //        custom_fields: [
-  //           {
-  //               display_name: "Mobile Number",
-  //               variable_name: "mobile_number",
-  //               value: "+2348012345678"
-  //           }
-  //        ]
-  //     },
-  //     callback:this.callback,
-  //     onClose:this.close
-  //   });
-  //   handler.openIframe();
-  // }
   render() {
-    const { costomerAmount, costomerEmail, key } = this.state;
+    const { costumerAmount, costumerEmail, key, paymentData } = this.state;
     const { submitting } = this.props;
+
     return (
       <div>
         <Row>
@@ -165,6 +146,7 @@ class TransactionForm extends Component {
                     validationErrors={{
                       isNumeric: "Enter number only",
                     }}
+                    value={costumerAmount}
                   />
                   <PaystackButton
                     text="Make Payment"
@@ -173,13 +155,14 @@ class TransactionForm extends Component {
                     close={this.close}
                     embed={false}
                     reference={this.getReference()}
-                    email={costomerEmail}
-                    amount={costomerAmount}
+                    email={costumerEmail}
+                    amount={costumerAmount * 100}
                     paystackkey={key}
                     tag="button"
                     ref={c => {
                       this.payStackButton = c;
                     }}
+                    disabled={submitting}
                   />
                 </Formsy>
               </CardBody>
@@ -192,5 +175,3 @@ class TransactionForm extends Component {
 }
 
 export default TransactionForm;
-
-//style={{backgroundColor:"#901E78"}}

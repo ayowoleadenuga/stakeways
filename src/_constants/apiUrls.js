@@ -12,4 +12,8 @@ export const apiUrls = {
     transactionhistory: `${endPointUrl}/${apiName}/services/app/Payment/GetByUser`,
     login: `${baseUrl}/api/TokenAuth/Authenticate`,
   },
+  userDetails: {
+    userData: `${endPointUrl}/${apiName}/services/app/User/Get`,
+    userPayment: `${endPointUrl}/${apiName}/services/app/User/Update`,
+  },
 };
