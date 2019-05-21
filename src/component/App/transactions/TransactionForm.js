@@ -18,7 +18,7 @@ class TransactionForm extends Component {
     this.state = {
       canSubmit: false,
       costumerEmail: null,
-      key: "pk_test_7d7177d018dffeec7e3b0d66cf376509124f8014",
+      key: null,
       costumerAmount: 100,
       costumerBalance: null,
       error: null,
@@ -118,7 +118,7 @@ class TransactionForm extends Component {
   };
 
   render() {
-    const { costumerAmount, costumerEmail, key, paymentData } = this.state;
+    const { costumerAmount, costumerEmail, key } = this.state;
     const { submitting } = this.props;
 
     return (
