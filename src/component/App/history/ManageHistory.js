@@ -5,6 +5,7 @@ import "./edet.css";
 import HistoryTable from "./BetHistoryTable";
 import TransactionHistoryTable from "./TransactionHistoryTable";
 import { historyService } from "./service/HistoryServices";
+import { connect } from "react-redux";
 
 class ManageHistory extends Component {
   constructor(props) {
@@ -15,18 +16,15 @@ class ManageHistory extends Component {
       error: null,
       fetching: false,
       submitting: false,
-      id: 10004,
+      id: null,
       betHistoryData: null,
       transactionHistoryData: null,
     };
   }
   componentDidMount() {
-    // this.getUserLoginDetails(userDetails);//still undergoing testing..
-    this.getBetHistory(this.state.id);
+    this.getBetHistory(this.props.response.result.userId);
   }
-  componentWillReceiveProps(nextProps) {
-    //when transaction button is click..
-  }
+  
   getUserLoginDetails = data => {
     this.setState({
       fetching: true,
@@ -76,15 +74,15 @@ class ManageHistory extends Component {
 
   transactionHistoryClick = () => {
     this.setState({ isBetClick: false, isTransactionClick: true });
-    this.getTransactionHistory(this.state.id);
+    this.getTransactionHistory(this.props.response.result.userId);
   };
 
   refreshData = () => {
     if (this.state.isBetClick) {
-      this.getBetHistory(this.state.id);
+      this.getBetHistory(this.props.response.result.userId);
     }
     if (this.state.isTransactionClick) {
-      this.getTransactionHistory(this.state.id);
+      this.getTransactionHistory(this.props.response.result.userId);
     }
   };
   render() {
@@ -139,4 +137,11 @@ class ManageHistory extends Component {
     );
   }
 }
-export default ManageHistory;
+const mapStateToProps = state => {
+  const { response } = state.auth;
+  return {
+    response,
+  };
+};
+
+export default connect(mapStateToProps)(ManageHistory);
