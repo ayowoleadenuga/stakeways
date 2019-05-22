@@ -10,18 +10,22 @@ import { PrivateRoute, PublicOnlyRoute } from "../src/component/_Routes";
 
 import { authActions } from "../src/component/AuthComponents/Login/actions/auth.actions";
 import { alertActions } from "../src/component/Alert/actions/alert.actions";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 class App extends Component {
   render() {
     const { submitted: loggedIn, logout } = this.props;
     return (
       <Router history={history}>
+     <ToastContainer />
         <Switch>
+        
           <PrivateRoute
             loggedIn={loggedIn}
             path="/app"
             logOut={logout}
             component={MainApp}
+
           />
           <PublicOnlyRoute
             loggedIn={loggedIn}

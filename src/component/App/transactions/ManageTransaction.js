@@ -3,7 +3,7 @@ import { Button} from "reactstrap";
 import {  MdPayment } from "react-icons/md";
 import TransactionForm from "./TransactionForm";
 import Withdraw from "./Withdraw";
-
+import { connect } from "react-redux";
 
 class ManageTransactions extends Component {
   constructor(props) {
@@ -63,6 +63,7 @@ class ManageTransactions extends Component {
           {isFundAccountClick ?(
             <TransactionForm
         submitting={submitting}
+        userId={this.props.response.result.userId}
       /> 
           ):isWithdrawClick ?(
              <Withdraw/>
@@ -74,5 +75,10 @@ class ManageTransactions extends Component {
     )
 }
 }
-
-export default ManageTransactions;
+const mapStateToProps = state => {
+  const { response } = state.auth;
+  return {
+    response,
+  };
+};
+export default connect(mapStateToProps) (ManageTransactions);
