@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GameDraw from './gameDraw';
 // import lotto from "../../assets/lotto.png";
 
 
@@ -10,7 +11,9 @@ class GameTemplate extends Component {
       gametype:  '',
       username: '',
       password: '',
-      ballsArray: []
+      disableBalls: false,
+      ballsArray: [],
+      disabled: true
     }
   }
 
@@ -20,6 +23,47 @@ class GameTemplate extends Component {
       [name]: value
     })    
   }
+  handleGameTime = () => {
+    console.log("I'm here")
+    let elem = document.getElementById('game-time');
+    elem.style.border = '6px solid green';
+    this.setState({
+      disabled: false
+    })
+  }
+  handleGameSelect = (e) => {
+    const selectedGame = e.target.value;
+    this.setState({
+      gametype: selectedGame
+    })
+  }
+  handleBallSelect = (e) => {
+    let ballArr = [];
+    let ballNumber = e.target.value;
+    console.log(ballNumber)
+    ballArr.push(ballNumber);
+    this.setState((prevState) => {
+      return {ballsArray: [...prevState.ballsArray, ...ballArr]}
+    }, () => this.validateBalls());
+  }
+
+  validateBalls = () => {
+    let { ballsArray } = this.state
+    let gameType = this.state.gametype;
+    switch (gameType) {
+      case "PERM2":
+      case "PERM3":
+      case "PERM4":
+      case "PERM8":
+      case "PERM10":
+        ballsArray && ballsArray.length === 6 ? this.setState({ disableBalls: true}) :  this.setState({disableBalls: false});
+        break;
+      default:
+        ballsArray && ballsArray.length === 2 ? this.setState({ disableBalls: true}) :  this.setState({disableBalls: false});
+        break;
+    }
+  }
+
   fillBalls = () => {
     let balls = []
     for(let i=1; i<91; i++){
@@ -29,14 +73,6 @@ class GameTemplate extends Component {
       ballsArray: balls
     })
     console.log(this.state.ballsArray)
-  }
-  handleSubmit = event => {
-    event.preventDefault()
-    const { gametype, username, password } = this.state
-    alert(`Your registration detail: \n 
-           gametype: ${gametype} \n 
-           Username: ${username} \n
-           Password: ${password}`)
   }
   
   _next = () => {
@@ -56,7 +92,7 @@ class GameTemplate extends Component {
   }
 
 /*
-* the functions for our button
+* the functions for buttons
 */
 previousButton() {
   let currentStep = this.state.currentStep;
@@ -78,7 +114,7 @@ nextButton(){
     return (
       <button 
         className="btn btn-primary float-right" 
-        type="button" onClick={this._next}>
+        type="button" onClick={this._next} disabled={this.state.disabled}>
       Next
       </button>        
     )
@@ -86,26 +122,24 @@ nextButton(){
   return null;
 }
   
-  render() {    
-    console.log('rendered')
+  render() {
     return (
       <React.Fragment>
       <h6>Play Game</h6>
       <p>Step {this.state.currentStep} </p> 
 
-      <form onSubmit={this.handleSubmit}>
-      {/* 
-        render the form steps and pass required props in
-      */}
         <Step1 
           currentStep={this.state.currentStep} 
           handleChange={this.handleChange}
           gametype={this.state.gametype}
+          handleGame={this.handleGameTime}
         />
         <Step2 
           currentStep={this.state.currentStep} 
           handleChange={this.handleChange}
-          username={this.state.username}
+          handleChange2={this.handleBallSelect}
+          handleGameSelect={this.handleGameSelect}
+          handleDisable={this.state.disableBalls}
         />
         <Step3 
           currentStep={this.state.currentStep} 
@@ -115,7 +149,6 @@ nextButton(){
         {this.previousButton()}
         {this.nextButton()}
 
-      </form>
       </React.Fragment>
     );
   }
@@ -127,17 +160,8 @@ function Step1(props) {
   } 
   return(
     <div className="form-group col-md-6 offset-3">
-      <label htmlFor="gametype">1st step</label>
-      <select
-        className="form-control"
-        id="gametype"
-        name="gametype"
-        type="select"
-        placeholder="Select Gametype"
-        value={props.gametype}
-        onChange={props.handleChange}
-        >  
-        </select>
+      <label htmlFor="gametype">1st step: Choose Draw</label>
+      <GameDraw handle={props.handleGame} clas={"game-time"}/>
     </div>
   );
 }
@@ -146,19 +170,36 @@ function Step2(props) {
   if (props.currentStep !== 2) {
     return null
   } 
-  let balls = []
+  const balls = []
     for(let i=0; i<91; i++){
       balls.push(i);
     }
   return(
-    <div className="form-group col-md-4 offset-4">
-      <h5>Select Numbers</h5>
+    <div className="form-group col-md-6 offset-3">
+      <h5>Select Game type and pick balls</h5>
+      <br/>
+      <form>
+        <select className="gameType" placeholder="Select game type" onChange={props.handleGameSelect}>
+        <option>NAP2</option>
+        <option>PERM2</option>
+        <option>PERM3</option>
+        <option>PERM4</option>
+        <option>PERM8</option>
+        <option>PERM10</option>
+      </select>
+      <br/>
       <br/>
       <div className="balls">
-        {balls.map(ball => (
-        <div class="ball" key={`ball${balls[ball]}`}>{balls[ball]}</div>
-        ))}  
+        <ul>
+          {balls.map(ball => (
+          <li key={`ball${balls[ball]}`}>
+            <input disabled={props.handleDisable} onClick={props.handleChange2} type="checkbox" id={`check${balls[ball]}`} className="ball" value={balls[ball]} /><label htmlFor={`check${balls[ball]}`} >{balls[ball]}</label>
+          </li>
+          ))}
+        </ul>
       </div>
+      </form>
+      
       
     </div>
   );
