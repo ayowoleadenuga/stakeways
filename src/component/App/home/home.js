@@ -24,7 +24,7 @@ let homeMenu = [
     body: "0",
     class: "haybee",
     cta: "View Transactions",
-    destination:"/app/transactions"
+    destination:"/app/history"
   }
 ]
 export default class Home extends Component {

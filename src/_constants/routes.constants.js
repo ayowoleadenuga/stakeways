@@ -2,14 +2,23 @@ import {
   MdHistory,
   MdHome,
   MdGames,
-  MdPerson,
-  MdViewList
+  MdViewList,
+  MdCardTravel,
+  MdDns,
+  MdAssignment,
+  MdPeopleOutline,
+  MdDashboard
 } from "react-icons/md";
 import Home from "../component/App/home/home";
 import AllGames from "../component/App/all_games/allGames";
 import ManageTransactions from "../component/App/transactions/ManageTransaction";
-import AccountSettings from "../component/App/account/accountSettings";
+import BetManagerTable from "../component/App/admin/BetManagerTable"
 import ManageHistory from "../component/App/history/ManageHistory";
+import AccountSettings from "../component/App/account/accountSettings";
+import ResultInfoTable from "../component/App/admin/ResultInfoTable";
+import RolesTable from "../component/App/admin/RolesTable";
+import UsersTable from "../component/App/admin/UsersTable";
+import GamesInfoTable from "../component/App/admin/GamesInfoTable";
 
 export const routeConstants = {
   HOME: {
@@ -53,16 +62,81 @@ export const routeConstants = {
     enabled: true
   },
   ACCOUNT: {
-    key: "account_settings",
-    title: "Account Settings",
-    name: "Account Settings",
-    path: "/account-settings",
-    icon: MdPerson,
-    menu: true,
+    key: "reset-password",
+    title: "Reset Password",
+    name: "Reset Password",
+    path: "/reset-password",
+    icon: MdHistory,
+    menu: false,
     menuOptions: {
       darken: false
     },
     pageComponent: AccountSettings,
+    enabled: true
+  },
+  BET_MANAGER: {
+    key: "bet-manager",
+    title: "Bet Manager",
+    name: "Bet Manager",
+    path: "/bet-manager",
+    icon: MdCardTravel,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: BetManagerTable,
+    enabled: true
+  },
+  RESULT: {
+    key: "result",
+    title: "Result",
+    name: "Result",
+    path: "/result",
+    icon: MdDashboard,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: ResultInfoTable,
+    enabled: true
+  },
+  ROLES: {
+    key: "roles",
+    title: "Roles",
+    name: "Roles",
+    path: "/roles",
+    icon: MdDns,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: RolesTable,
+    enabled: true
+  },
+  USERS: {
+    key: "users",
+    title: "Users",
+    name: "Users",
+    path: "/users",
+    icon: MdPeopleOutline,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: UsersTable,
+    enabled: true
+  },
+  GAMES_INFO: {
+    key: "games-info",
+    title: "Games-Info",
+    name: "Games-Info",
+    path: "/games-info",
+    icon: MdAssignment,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: GamesInfoTable,
     enabled: true
   },
   TRANSACTIONS: {

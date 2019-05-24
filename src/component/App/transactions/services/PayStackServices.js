@@ -10,8 +10,6 @@ export const payStackService = {
    return apiCall("GET", `${apiUrls.userDetails.userData}?Id=${id}`);
     
   }
-
-  
   function createTransaction(request,id) {
     return apiCall("PUT", `${apiUrls.userDetails.userPayment}?Id=${id}`,request);
   }

@@ -5,6 +5,7 @@ import "../../App.scss";
 import SideMenu from "./sidebar";
 import CNavBar from "../../_utils/NavBar";
 import { routes } from "../../_constants";
+import AccountSettings from "./account/accountSettings";
 
 class MainApp extends Component {
   state = {
@@ -36,6 +37,12 @@ class MainApp extends Component {
                     component={route.pageComponent}
                   />
                 ))}
+                <Route 
+                  key="account_settings"
+                  path={`${match.path}/reset-password`}
+                  name="reset-password"
+                  component={AccountSettings}
+                />
               </Switch>
             </Container>
           </main>

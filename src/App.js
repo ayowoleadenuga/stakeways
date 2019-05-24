@@ -17,15 +17,13 @@ class App extends Component {
     const { submitted: loggedIn, logout } = this.props;
     return (
       <Router history={history}>
-     <ToastContainer />
+        <ToastContainer />
         <Switch>
-        
           <PrivateRoute
             loggedIn={loggedIn}
             path="/app"
             logOut={logout}
             component={MainApp}
-
           />
           <PublicOnlyRoute
             loggedIn={loggedIn}

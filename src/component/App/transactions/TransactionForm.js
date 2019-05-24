@@ -18,7 +18,7 @@ class TransactionForm extends Component {
     this.state = {
       canSubmit: false,
       costumerEmail: null,
-      key: null,
+      key: "pk_test_68ca186c03ac7b60fa8ba65cb74d44eb449f2657",
       costumerAmount: 100,
       costumerBalance: null,
       error: null,
@@ -33,6 +33,7 @@ class TransactionForm extends Component {
     payStackService
       .getUserDetails(id)
       .then(response => {
+        console.log(response)
         this.setState({
           costumerEmail: response.result.emailAddress,
           costumerBalance: response.result.balance,

@@ -13,6 +13,7 @@ class GameTemplate extends Component {
       password: '',
       disableBalls: false,
       ballsArray: [],
+      // selectedBalls : [],
       disabled: true
     }
   }
@@ -38,17 +39,36 @@ class GameTemplate extends Component {
     })
   }
   handleBallSelect = (e) => {
-    let ballArr = [];
     let ballNumber = e.target.value;
-    console.log(ballNumber)
-    ballArr.push(ballNumber);
-    this.setState((prevState) => {
-      return {ballsArray: [...prevState.ballsArray, ...ballArr]}
-    }, () => this.validateBalls());
+    const checkbox = document.getElementById(`check${ballNumber}`)
+    console.log(checkbox)
+    checkbox.addEventListener("change", e=>{
+      console.log(e)
+      if(e.target.checked){
+        this.setState((prevState) => {
+          return {ballsArray: [...prevState.ballsArray, ballNumber]}
+        }, () => {this.validateBalls();});
+      }
+      else if (e.target.checked === !e.target.checked){
+        var ballArr = [...this.state.ballsArray]
+        console.log(ballArr)
+        var index = ballArr.indexOf(ballNumber)
+        if(index !== -1){
+          ballArr.splice(index, 1)
+        }
+        this.setState((prevState) =>{
+          return { ballsArray: [...ballArr] }
+        }, () => {this.validateBalls();})
+        // console.log(...this.state.ballsArray)
+      }
+      
+    })
   }
 
   validateBalls = () => {
     let { ballsArray } = this.state
+    const elem = document.querySelector(".ball").value;
+    console.log(elem)
     let gameType = this.state.gametype;
     switch (gameType) {
       case "PERM2":
@@ -65,14 +85,14 @@ class GameTemplate extends Component {
   }
 
   fillBalls = () => {
-    let balls = []
-    for(let i=1; i<91; i++){
-      balls.push(i);
-    }
-    this.setState({
-      ballsArray: balls
-    })
-    console.log(this.state.ballsArray)
+    // let balls = []
+    // for(let i=1; i<91; i++){
+    //   balls.push(i);
+    // }
+    // this.setState({
+    //   ballsArray: balls
+    // })
+    // console.log(this.state.ballsArray)
   }
   
   _next = () => {
@@ -174,19 +194,23 @@ function Step2(props) {
     for(let i=0; i<91; i++){
       balls.push(i);
     }
+    // console.log(balls)
   return(
     <div className="form-group col-md-6 offset-3">
-      <h5>Select Game type and pick balls</h5>
-      <br/>
       <form>
-        <select className="gameType" placeholder="Select game type" onChange={props.handleGameSelect}>
-        <option>NAP2</option>
-        <option>PERM2</option>
-        <option>PERM3</option>
-        <option>PERM4</option>
-        <option>PERM8</option>
-        <option>PERM10</option>
-      </select>
+        <div className="col-md-8 offset-2">
+        <h5>Select Game type and pick balls</h5>
+        <br/>
+          <select className="gameType" placeholder="Select game type" onChange={props.handleGameSelect}>
+            <option>NAP2</option>
+            <option>PERM2</option>
+            <option>PERM3</option>
+            <option>PERM4</option>
+            <option>PERM8</option>
+            <option>PERM10</option>
+          </select>
+        </div>
+        
       <br/>
       <br/>
       <div className="balls">
@@ -194,6 +218,7 @@ function Step2(props) {
           {balls.map(ball => (
           <li key={`ball${balls[ball]}`}>
             <input disabled={props.handleDisable} onClick={props.handleChange2} type="checkbox" id={`check${balls[ball]}`} className="ball" value={balls[ball]} /><label htmlFor={`check${balls[ball]}`} >{balls[ball]}</label>
+            {/* {balls[ball] % 10 === 0 ? <br/> : null} */}
           </li>
           ))}
         </ul>
