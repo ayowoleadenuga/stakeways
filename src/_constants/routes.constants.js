@@ -74,6 +74,35 @@ export const routeConstants = {
     pageComponent: AccountSettings,
     enabled: true
   },
+  TRANSACTIONS: {
+    key: "transaction",
+    title: "Transactions",
+    name: "Transactions",
+    path: "/transactions",
+    icon: MdViewList,
+    menu: true,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: ManageTransactions,
+    enabled: true
+  },
+  ALL: {
+    key: "all",
+    title: "all",
+    name: "all",
+    path: "*",
+    icon: MdHome,
+    menu: false,
+    menuOptions: {
+      darken: false
+    },
+    pageComponent: Home,
+    enabled: true
+  }
+};
+
+export const routeConstantsAdmin = {
   BET_MANAGER: {
     key: "bet-manager",
     title: "Bet Manager",
@@ -138,34 +167,8 @@ export const routeConstants = {
     },
     pageComponent: GamesInfoTable,
     enabled: true
-  },
-  TRANSACTIONS: {
-    key: "transaction",
-    title: "Transactions",
-    name: "Transactions",
-    path: "/transactions",
-    icon: MdViewList,
-    menu: true,
-    menuOptions: {
-      darken: false
-    },
-    pageComponent: ManageTransactions,
-    enabled: true
-  },
-  ALL: {
-    key: "all",
-    title: "all",
-    name: "all",
-    path: "*",
-    icon: MdHome,
-    menu: false,
-    menuOptions: {
-      darken: false
-    },
-    pageComponent: Home,
-    enabled: true
   }
-};
+}
 
 export const createRoutes = () => {
   const routes = [];
@@ -175,4 +178,13 @@ export const createRoutes = () => {
   return routes;
 };
 
+export const createRoutes2 = () => {
+  const routes = [];
+  for (var route in routeConstantsAdmin) {
+    routeConstantsAdmin[route].enabled && routes.push(routeConstantsAdmin[route]);
+  }
+  return routes;
+};
+
+export const adminRoutes = createRoutes2();
 export const routes = createRoutes();

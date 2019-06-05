@@ -7,8 +7,7 @@ import {Nav,
 import { connect } from "react-redux";
 import { MdMenu } from "react-icons/md";
 import PropTypes from "prop-types";
-import { MdPowerSettingsNew, MdAccountBalance } from "react-icons/md";
-// import { Link } from 'react-router-dom';
+import { MdPowerSettingsNew, MdAccountBalance, MdKeyboardArrowDown } from "react-icons/md";
 import { bindActionCreators } from "redux";
 import { authActions } from "../component/AuthComponents/Login/actions/auth.actions";
 import { alertActions } from "../component/Alert/actions/alert.actions";
@@ -33,7 +32,7 @@ class CNavBar extends React.Component {
     payStackService
       .getUserDetails(id)
       .then(response => {
-        console.log(response)
+        // console.log(response);
         this.setState({
           name: response.result.name,
           costumerBalance: response.result.balance,
@@ -60,6 +59,7 @@ class CNavBar extends React.Component {
   
   render() {
     const { toggleFullWidth } = this.props;
+    // console.log(this.props);
     return (
       <div>
         <Navbar light expand="md" className='navbar'>
@@ -73,7 +73,7 @@ class CNavBar extends React.Component {
             <NavItem className="mr">
               <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                 <DropdownToggle nav>
-                  <h5 className="idd">{this.state.name}</h5>
+                  <h5 className="idd">{this.state.name} <MdKeyboardArrowDown /></h5>
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={this.logoutHandler}>Logout <MdPowerSettingsNew /></DropdownItem>
